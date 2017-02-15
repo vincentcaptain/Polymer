@@ -1,0 +1,16 @@
+# Sample LAMMPS script for modulating the probability that a hexamer passes 
+# a pore with pulling force on a LJ wall, under Langevin dynamics
+
+# settings
+# a 2D 80*80 box
+variable      x equal 80
+variable      y equal 80
+# temperature t = 1
+variable      t equal 1
+
+
+# System setup
+
+units         lj
+dimension     2
+atom_style    bond
