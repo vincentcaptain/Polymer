@@ -4,11 +4,11 @@
 # settings
 # a 3D 60 box
 variable      x equal 60
-variable      y equal 60
-variable      z equal 60
+variable      y equal 30
+variable      z equal 30
 # temperature t = 1
 variable      t equal 1
-variable      rho equal 0.7
+variable      rho equal 0.9
 
 
 # System setup
@@ -16,28 +16,22 @@ variable      rho equal 0.7
 units         lj
 dimension     3
 atom_style    bond
-special_bonds lj 0.0 0.0 0.5
 # LJ pairs
 pair_style    lj/cut 3
 bond_style    harmonic
 read_data     data.polymer
 pair_coeff    1 2 2.5 1 3
-pair_coeff    1 3 2.5 1.0 3.0
-pair_coeff    2 3 2.5 1.0 3.0
 
 
 
 
-# two 3D LJ lattices at the middle of the box
-lattice       fcc ${rho}
-region        upperwall block 29.9 30.1 30.1 60.0 0 60.0
-region        midupper block 29.9 30.1 29.9 30.1 30.1 60
-region        midlower block 29.9 30.1 29.9 30.1 0 29.9
-region        lowerwall block 29.9 30.1 0 29.9 0 60.0
-create_atoms  3 region upperwall
-create_atoms  3 region lowerwall
-create_atoms  3 region midupper
-create_atoms  3 region midlower
+
+# two 3D LJ lattices at the middle of the box by fix wall/region
+region        void cylinder x 15 15 2 29 31
+region        wall block 29 31 0 30 0 30
+group         1 region wall
+group         2 region void
+group         w subtract 1 2
 velocity      all create $t 97287
 
 
@@ -47,6 +41,7 @@ group         polymer type 1 2
 # Create forces
 fix           1 polymer nve
 fix           2 polymer langevin $t $t 1 1209
+fix           3 all wall/region w lj126 2.5 1 3
 
 # equilibration run
 
