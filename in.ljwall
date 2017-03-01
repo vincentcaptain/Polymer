@@ -32,10 +32,10 @@ region        upperwall block 29.9 30.1 30.1 60.0 0 60.0
 region        midupper block 29.9 30.1 29.9 30.1 30.1 60
 region        midlower block 29.9 30.1 29.9 30.1 0 29.9
 region        lowerwall block 29.9 30.1 0 29.9 0 60.0
-create_atoms  3 upperwall
-create_atoms  3 lowerwall
-create_atoms  3 midupper
-create_atoms  3 midlower
+create_atoms  3 region upperwall
+create_atoms  3 region lowerwall
+create_atoms  3 region midupper
+create_atoms  3 region midlower
 pair_style    lj/cut 0.3
 pair_coeff    3 1 0.3 1.0 1.1
 pair_coeff    3 2 0.3 1.0 1.1
