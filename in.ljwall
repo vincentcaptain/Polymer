@@ -21,7 +21,7 @@ special_bonds lj 0.0 0.0 0.5
 pair_style    lj/cut 2.5
 bond_style    harmonic
 
-read_data     data.polymer
+
 # two 3D LJ lattices at the middle of the box
 lattice       fcc ${rho}
 region        simbox block 0 $x 0 $y 0 $z
@@ -30,6 +30,11 @@ region        midupper block 29.9 30.1 29.9 30.1 30.1 60
 region        midlower block 29.9 30.1 29.9 30.1 0 29.9
 region        lowerwall block 29.9 30.1 0 29.9 0 60.0
 create_box    1 simbox
+create_atom   3 upperwall
+create_atom   3 lowerwall
+create_atom   3 midupper
+create_atom   3 midlower
+read_data     data.polymer
 
 
 # Read bond/position info
