@@ -34,6 +34,10 @@ create_atom   3 upperwall
 create_atom   3 lowerwall
 create_atom   3 midupper
 create_atom   3 midlower
+pair_style    lj/cut 0.3
+pair_coeff    3 1 2.5 1.0 0.1 3
+pair_coeff    3 2 2.5 1.0 0.1 3
+pair_coeff    3 3 0.3 1.0 0.1 3
 
 
 
