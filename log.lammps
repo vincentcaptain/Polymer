@@ -8,7 +8,7 @@ variable      x equal 60
 variable      y equal 60
 variable      z equal 60
 # temperature t = 1
-# variable      t equal 1
+variable      t equal 1
 variable      rho equal 0.7
 
 
@@ -34,7 +34,9 @@ read_data     data.polymer
   2 = max # of 1-3 neighbors
   4 = max # of 1-4 neighbors
   6 = max # of special neighbors
-pair_coeff   1 2 1 1 2.5
+pair_coeff    1 2 2.5 1 3
+pair_coeff    1 3 2.5 1.0 3.0
+pair_coeff    2 3 2.5 1.0 3.0
 
 
 
@@ -47,5 +49,41 @@ region        upperwall block 29.9 30.1 30.1 60.0 0 60.0
 region        midupper block 29.9 30.1 29.9 30.1 30.1 60
 region        midlower block 29.9 30.1 29.9 30.1 0 29.9
 region        lowerwall block 29.9 30.1 0 29.9 0 60.0
-create_atom   3 upperwall
-ERROR: Unknown command: create_atom   3 upperwall (../input.cpp:247)
+create_atoms  3 region upperwall
+Created 0 atoms
+create_atoms  3 region lowerwall
+Created 1 atoms
+create_atoms  3 region midupper
+Created 0 atoms
+create_atoms  3 region midlower
+Created 0 atoms
+velocity      all create $t 97287
+velocity      all create 1 97287
+
+
+# Read bond/position info
+
+
+# Create forces
+fix           1 all nve
+fix           2 all langevin $t $t 1 1209
+fix           2 all langevin 1 $t 1 1209
+fix           2 all langevin 1 1 1 1209
+
+# equilibration run
+
+thermo          1000
+run	            5000
+Neighbor list info ...
+  1 neighbor list requests
+  update every 1 steps, delay 10 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 3.3
+  ghost atom cutoff = 3.3
+  binsize = 1.65 -> bins = 37 1 1
+WARNING: Inconsistent image flags (../domain.cpp:785)
+WARNING: Bond/angle/dihedral extent > half of periodic box length (../domain.cpp:906)
+Memory usage per processor = 3.86501 Mbytes
+Step Temp E_pair E_mol TotEng Press 
+       0            1    246822.39   0.40270986    246824.15    181452.69 
+ERROR: Lost atoms: original 11 current 1 (../thermo.cpp:427)
