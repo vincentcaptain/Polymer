@@ -16,6 +16,7 @@ read_data     data.polymer
 units         lj
 dimension     3
 atom_style    bond
+special_bonds lj 0.0 0.0 0.5
 
 # two 3D LJ lattices at the middle of the box
 lattice       fcc ${rho}
