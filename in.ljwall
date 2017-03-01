@@ -42,11 +42,11 @@ velocity      all create $t 97287
 
 
 # Read bond/position info
-group         1 
+group         polymer type 1 2
 
 # Create forces
-fix           1 all nve
-fix           2 all langevin $t $t 1 1209
+fix           1 polymer nve
+fix           2 polymer langevin $t $t 1 1209
 
 # equilibration run
 
