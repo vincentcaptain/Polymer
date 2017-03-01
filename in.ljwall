@@ -10,7 +10,7 @@ variable      z equal 60
 # variable      t equal 1
 # variable      rho = 0.7
 
-read_data     data.polymer
+
 # System setup
 
 units         lj
@@ -18,6 +18,7 @@ dimension     3
 atom_style    bond
 special_bonds lj 0.0 0.0 0.5
 
+read_data     data.polymer
 # two 3D LJ lattices at the middle of the box
 lattice       fcc ${rho}
 region        simbox block 0 $x 0 $y 0 $z
