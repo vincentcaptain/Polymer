@@ -1,4 +1,5 @@
-# Sample LAMMPS script for modulating the probability that a hexamer passes 
+LAMMPS (17 Nov 2016)
+# Sample LAMMPS script for modulating the probability that a hexamer passes
 # a pore with pulling force on a LJ wall, under Langevin dynamics
 
 # settings
@@ -21,6 +22,18 @@ special_bonds lj 0.0 0.0 0.5
 pair_style    lj/cut 3
 bond_style    harmonic
 read_data     data.polymer
+  triclinic box = (0 -0.5 -0.5) to (60 0.5 0.5) with tilt (0 0 0)
+  1 by 1 by 1 MPI processor grid
+  reading atoms ...
+  10 atoms
+  scanning bonds ...
+  1 = max bonds/atom
+  reading bonds ...
+  9 bonds
+  2 = max # of 1-2 neighbors
+  2 = max # of 1-3 neighbors
+  4 = max # of 1-4 neighbors
+  6 = max # of special neighbors
 pair_coeff   1 2 1 1 2.5
 
 
@@ -28,32 +41,11 @@ pair_coeff   1 2 1 1 2.5
 
 # two 3D LJ lattices at the middle of the box
 lattice       fcc ${rho}
+lattice       fcc 0.7
+Lattice spacing in x,y,z = 1.78781 1.78781 1.78781
 region        upperwall block 29.9 30.1 30.1 60.0 0 60.0
 region        midupper block 29.9 30.1 29.9 30.1 30.1 60
 region        midlower block 29.9 30.1 29.9 30.1 0 29.9
 region        lowerwall block 29.9 30.1 0 29.9 0 60.0
 create_atom   3 upperwall
-create_atom   3 lowerwall
-create_atom   3 midupper
-create_atom   3 midlower
-pair_style    lj/cut 0.3
-pair_coeff    3 1 0.3 1.0 1.1
-pair_coeff    3 2 0.3 1.0 1.1
-pair_coeff    3 3 0.3 1.0 1.1
-
-
-# Read bond/position info
-
-
-# Create forces
-fix           1 all nve
-fix           2 all langevin 1 1 5
-
-# equilibration run
-
-thermo          1000
-run	            5000
-
-reset_timestep 0
-thermo 100
-run 1000
+ERROR: Unknown command: create_atom   3 upperwall (../input.cpp:247)
