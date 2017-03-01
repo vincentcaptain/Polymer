@@ -20,7 +20,7 @@ special_bonds lj 0.0 0.0 0.5
 # LJ pairs
 pair_style    lj/cut 2.5
 bond_style    harmonic
-
+read_data     data.polymer
 
 # two 3D LJ lattices at the middle of the box
 lattice       fcc ${rho}
@@ -34,7 +34,7 @@ create_atom   3 upperwall
 create_atom   3 lowerwall
 create_atom   3 midupper
 create_atom   3 midlower
-read_data     data.polymer
+
 
 
 # Read bond/position info
