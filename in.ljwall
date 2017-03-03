@@ -8,7 +8,8 @@ variable      y equal 30
 variable      z equal 30
 # temperature t = 1
 variable      t equal 1
-variable      rho equal 0.9
+#variable      rho equal 0.7
+#neigh_modify  delay 0 check yes one 200000 page 2000000
 
 
 # System setup
@@ -16,38 +17,57 @@ variable      rho equal 0.9
 units         lj
 dimension     3
 atom_style    bond
-# LJ pairs
-pair_style    lj/cut 3
 bond_style    harmonic
+pair_style    lj/cut 3
 read_data     data.polymer
-pair_coeff    1 2 2.5 1 3
 
+# LJ pairs
 
-
-
-
-# two 3D LJ lattices at the middle of the box by fix wall/region
+# lattice       fcc ${rho}
+# region        simbox block 0 $x 0 $y 0 $z
+#create_box    1 simbox
 region        void cylinder x 15 15 2 29 31
-region        wall block 29 31 0 30 0 30
-group         1 region wall
-group         2 region void
-group         w subtract 1 2
+#region        wall block 29 31 0 30 0 30
+
+
+
+#create_atoms  3 region wall
+#delete_atoms  region void
+pair_coeff    1 2 2.5 1 3
+pair_coeff    1 3 2.5 1.0 3.0
+pair_coeff    2 3 2.5 1.0 3.0
+
 velocity      all create $t 97287
 
 
 # Read bond/position info
 group         polymer type 1 2
+group         first type 1
+region        spherein sphere 29 15 15
+region        boxin block 27 29 13 17 13 17
+region        hemiin intersect boxin spherein
+#region        sphereout sphere 31 15 15
+#region        boxout block 31 33 13 17 13 17
+#region        hemiout intersect boxout sphereout
+
 
 # Create forces
+variable      r equal "sqrt"
 fix           1 polymer nve
-fix           2 polymer langevin $t $t 1 1209
-fix           3 all wall/region w lj126 2.5 1 3
+fix           2 polymer langevin $t $t 5 1209
+fix           3 first addforce 5 0 0 region hemiin
+fix           4 first addforce 1 0 0 region void
+#fix           5 first addforce -5 0 0 region hemiout
 
+#dump          walll polymer image 500 dump.*.jpg type type
 # equilibration run
+#thermo        1000
+#run           5000
 
-thermo          1000
-run	            5000
 
 reset_timestep 0
-thermo 100
-run 1000
+compute       com polymer com
+thermo_style custom c_com[1]
+
+thermo        1
+run           10000000
