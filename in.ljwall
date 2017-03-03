@@ -52,10 +52,13 @@ region        hemiin intersect boxin spherein
 
 
 # Create forces
-variable      r equal "sqrt"
+variable      r equal sqrt((x[1]-29)*(x[1]-29)+(y[1]-15)*(y[1]-15)+(z[1]-15)*(z[1]-15))
+variable      fx equal 5*(x[1]-29)/r
+variable      fy equal 5*(y[1]-15)/r
+variable      fz equal 5*(z[1]-15)/r
 fix           1 polymer nve
 fix           2 polymer langevin $t $t 5 1209
-fix           3 first addforce 5 0 0 region hemiin
+fix           3 first addforce $fx $fy $fz region hemiin
 fix           4 first addforce 1 0 0 region void
 #fix           5 first addforce -5 0 0 region hemiout
 
