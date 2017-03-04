@@ -1,6 +1,6 @@
 #!/bin/bash
 # Job name:
-#SBATCH --job-name=time_dependent_protocol.py
+#SBATCH --job-name=ljwall
 #
 # Account:
 #SBATCH --account=co_noneq
@@ -12,10 +12,10 @@
 #SBATCH --nodes=1
 #
 # Processors per task:
-#SBATCH --cpus-per-task=20
+#SBATCH --cpus-per-task=1
 #
 # Wall clock limit:
-#SBATCH --time=250:00:00
+#SBATCH --time=20:00:00
 #
 # Mail type:
 #SBATCH --mail-type=all
@@ -23,4 +23,4 @@
 # Mail user:
 #SBATCH --mail-user=vincentcaptain@berkeley.edu
 ## Command(s) to run:
-python2.7 time_dependent_protocol.py
+mpirun -np 4 lmp_serial -in in.ljwall
