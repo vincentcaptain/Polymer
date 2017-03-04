@@ -34,8 +34,8 @@ region        void cylinder x 15 15 2 29 31
 #create_atoms  3 region wall
 #delete_atoms  region void
 pair_coeff    1 2 2.5 1 3
-pair_coeff    1 3 2.5 1.0 3.0
-pair_coeff    2 3 2.5 1.0 3.0
+pair_coeff    1 3 4 1.0 3.0
+pair_coeff    2 3 4 1.0 3.0
 
 velocity      all create $t 97287
 
@@ -43,6 +43,7 @@ velocity      all create $t 97287
 # Read bond/position info
 group         polymer type 1 2
 group         first type 1
+region        box block 0 $x 0 $y 0 $z
 region        spherein sphere 29 15 15 2
 region        boxin block 27 29 13 17 13 17
 region        hemiin intersect 2 boxin spherein
@@ -52,17 +53,18 @@ region        hemiin intersect 2 boxin spherein
 
 
 # Create forces
-#variable      r equal sqrt((x[1]-29)*(x[1]-29)+(y[1]-15)*(y[1]-15)+(z[1]-15)*(z[1]-15))
-#variable      fx equal 5*(x[1]-29)/$r
-#variable      fy equal 5*(y[1]-15)/$r
-#variable      fz equal 5*(z[1]-15)/$r
+variable      r equal sqrt((x[1]-29)*(x[1]-29)+(y[1]-15)*(y[1]-15)+(z[1]-15)*(z[1]-15))
+variable      fx equal 5*(x[1]-29)/v_r
+variable      fy equal 5*(y[1]-15)/v_r
+variable      fz equal 5*(z[1]-15)/v_r
 fix           1 polymer nve
 fix           2 polymer langevin $t $t 5 1209
-fix           3 first addforce 5 0 0
+fix           3 first addforce v_fx v_fy v_fz region hemiin
 fix           4 first addforce 1 0 0 region void
+fix           5 polymer addforce 3 0 0 region box
 #fix           5 first addforce -5 0 0 region hemiout
 
-dump          walll polymer image 1000 dump.*.jpg type type
+#dump          walll all image 1000 dump.*.jpg type type
 # equilibration run
 #thermo        1000
 #run           5000
