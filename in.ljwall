@@ -73,8 +73,11 @@ timestep      0.02
 
 
 reset_timestep 0
-compute       com polymer com
-thermo_style custom c_com[1] c_com[2] c_com[3] v_ftotal
+#compute       com polymer com
+thermo_style custom v_ftotal
 
 thermo        1
-run           10000000
+run           10000
+
+fix 3 polymer recenter 6 15 15
+run           10000
