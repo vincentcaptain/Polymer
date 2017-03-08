@@ -57,7 +57,7 @@ variable      r equal sqrt((x[1]-29)*(x[1]-29)+(y[1]-15)*(y[1]-15)+(z[1]-15)*(z[
 variable      fx equal 5*(x[1]-29)/v_r
 variable      fy equal 5*(y[1]-15)/v_r
 variable      fz equal 5*(z[1]-15)/v_r
-variable      ftotal equal fcm(polymer 3)
+variable      ftotal equal fcm(polymer,x)
 fix           1 polymer nve
 fix           2 polymer langevin $t $t 1 1209
 fix           3 polymer recenter 5 15 15
