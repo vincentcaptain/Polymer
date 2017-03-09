@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.5.22)  3 MAR 2017 10:41
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.9.28)  8 MAR 2017 17:51
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -93,7 +93,7 @@ Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
 ))
-No file polymer_outline.aux.
+(./polymer_outline.aux)
 \openout1 = `polymer_outline.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 13.
@@ -108,6 +108,7 @@ LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 13.
 LaTeX Font Info:    ... okay on input line 13.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 13.
 LaTeX Font Info:    ... okay on input line 13.
+
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
 *geometry* verbose mode - [ preamble ] result:
@@ -220,9 +221,9 @@ Missing character: There is no   in font cmr10!
 {/usr/local/texlive/2016/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
 (./polymer_outline.aux) ) 
 Here is how much of TeX's memory you used:
- 2248 strings out of 493014
- 31743 string characters out of 6133351
- 93954 words of memory out of 5000000
+ 2250 strings out of 493014
+ 31783 string characters out of 6133351
+ 94954 words of memory out of 5000000
  5777 multiletter control sequences out of 15000+600000
  8893 words of font info for 34 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -235,7 +236,7 @@ sfonts/cm/cmmi8.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsf
 onts/cm/cmr10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfon
 ts/cm/cmr8.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/
 cm/cmsy10.pfb>
-Output written on polymer_outline.pdf (1 page, 77352 bytes).
+Output written on polymer_outline.pdf (1 page, 79209 bytes).
 PDF statistics:
  36 PDF objects out of 1000 (max. 8388607)
  25 compressed objects within 1 object stream
