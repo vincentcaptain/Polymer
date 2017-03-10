@@ -48,13 +48,13 @@ polymer.fix(2, "polymer langevin", t, t, 1.5, np.random.randint(2, high = 200000
 polymer.timestep(0.02)
 polymer.compute("com polymer com")
 polymer.variable("ftotal equal fcm(polymer,x)")
-polymer.thermo_style("custom v_ftotal c_com[1] c_com[2] c_com[3]")
+polymer.thermo_style("custom v_ftotal c_com[1]")
 polymer.thermo(1)
 l = []
-for i in range(1, 150):
-	polymer.fix(3, "polymer spring tether", 10, 30, 15, 15, i/5)
-	polymer.run(5000)
-	polymer.reser_timestep(0)
+# for i in range(1, 150):
+# 	polymer.fix(3, "polymer spring tether", 10, 30, 15, 15, i/5)
+# 	polymer.run(5000)
+# 	polymer.reser_timestep(0)
 
 
 # Eliminate repeated points and convert them to normal coordinate
