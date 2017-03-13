@@ -1,0 +1,2372 @@
+LAMMPS (17 Nov 2016)
+units lj
+dimension 3
+atom_style bond
+bond_style harmonic
+pair_style lj/cut 3
+read_data data.polymer
+  orthogonal box = (0 0 0) to (60 30 30)
+  1 by 1 by 1 MPI processor grid
+  reading atoms ...
+  8887 atoms
+  scanning bonds ...
+  1 = max bonds/atom
+  reading bonds ...
+  9 bonds
+  2 = max # of 1-2 neighbors
+  2 = max # of 1-3 neighbors
+  4 = max # of 1-4 neighbors
+  6 = max # of special neighbors
+region void cylinder x 15 15 2 29 31
+pair_coeff 1 2 2.5 3
+pair_coeff 1 3 2.5 1.12
+pair_coeff 2 3 2.5 1.12
+velocity all create 1 97287
+group polymer type 1 2
+10 atoms in group polymer
+group first type 1
+1 atoms in group first
+region box block 0 60 0 30 0 30
+region spherein sphere 29 15 15 2
+region boxin block 27 29 13 17 13 17
+region hemiin intersect 2 boxin spherein
+info system
+info system
+print "$(x[1])"
+22
+print "$(y[1])"
+15
+print "$(z[1])"
+15
+info system
+info system
+print "$(x[1])"
+22
+print "$(y[1])"
+15
+print "$(z[1])"
+15
+info system
+info system
+print "$(x[1])"
+22
+print "$(y[1])"
+15
+print "$(z[1])"
+15
+fix 1 polymer nve
+fix 2 polymer langevin 1 1 1.5 65051
+timestep 0.02
+compute com polymer com
+variable ftotal equal fcm(polymer,x)
+thermo_style custom v_ftotal
+thermo 1
+fix 3 polymer spring tether 10 30 15 15 0
+run 5
+Neighbor list info ...
+  1 neighbor list requests
+  update every 1 steps, delay 10 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 3.3
+  ghost atom cutoff = 3.3
+  binsize = 1.65 -> bins = 37 19 19
+Memory usage per processor = 4.0961 Mbytes
+v_ftotal 
+   154.14159 
+   91.306009 
+   131.73513 
+   94.310066 
+   182.01868 
+   129.07486 
+Loop time of 0.102175 on 1 procs for 5 steps with 8887 atoms
+
+Performance: 84560.803 tau/day, 48.936 timesteps/s
+98.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.10167    | 0.10167    | 0.10167    |   0.0 | 99.50
+Bond    | 5e-06      | 5e-06      | 5e-06      |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.000161   | 0.000161   | 0.000161   |   0.0 |  0.16
+Output  | 9.9e-05    | 9.9e-05    | 9.9e-05    |   nan |  0.10
+Modify  | 0.000173   | 0.000173   | 0.000173   |   nan |  0.17
+Other   |            | 7e-05      |            |       |  0.07
+
+Nlocal:    8887 ave 8887 max 8887 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    4323 ave 4323 max 4323 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    1.36211e+06 ave 1.36211e+06 max 1.36211e+06 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 1362111
+Ave neighs/atom = 153.27
+Ave special neighs/atom = 0.00540115
+Neighbor list builds = 0
+Dangerous builds = 0
+unfix 3
+fix 3 polymer spring tether 10 30 15 15 1
+run 5
+Memory usage per processor = 4.0961 Mbytes
+v_ftotal 
+    77.20158 
+   135.42328 
+   90.107519 
+   79.152369 
+   136.80522 
+   90.178089 
+Loop time of 0.095354 on 1 procs for 5 steps with 8887 atoms
+
+Performance: 90609.728 tau/day, 52.436 timesteps/s
+99.6% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.094902   | 0.094902   | 0.094902   |   0.0 | 99.53
+Bond    | 4e-06      | 4e-06      | 4e-06      |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.000126   | 0.000126   | 0.000126   |   0.0 |  0.13
+Output  | 9.7e-05    | 9.7e-05    | 9.7e-05    |   nan |  0.10
+Modify  | 0.000164   | 0.000164   | 0.000164   |   0.0 |  0.17
+Other   |            | 6.1e-05    |            |       |  0.06
+
+Nlocal:    8887 ave 8887 max 8887 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    4323 ave 4323 max 4323 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    1.36211e+06 ave 1.36211e+06 max 1.36211e+06 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 1362111
+Ave neighs/atom = 153.27
+Ave special neighs/atom = 0.00540115
+Neighbor list builds = 0
+Dangerous builds = 0
+unfix 3
+fix 3 polymer spring tether 10 30 15 15 1
+run 5
+Memory usage per processor = 4.0961 Mbytes
+v_ftotal 
+   111.23308 
+   60.676657 
+    99.23186 
+   102.08101 
+   93.767192 
+   84.897358 
+Loop time of 0.09462 on 1 procs for 5 steps with 8887 atoms
+
+Performance: 91312.619 tau/day, 52.843 timesteps/s
+99.9% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.094131   | 0.094131   | 0.094131   |   0.0 | 99.48
+Bond    | 3e-06      | 3e-06      | 3e-06      |   nan |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.000145   | 0.000145   | 0.000145   |   0.0 |  0.15
+Output  | 8.9e-05    | 8.9e-05    | 8.9e-05    |   0.0 |  0.09
+Modify  | 0.000179   | 0.000179   | 0.000179   |   0.0 |  0.19
+Other   |            | 7.3e-05    |            |       |  0.08
+
+Nlocal:    8887 ave 8887 max 8887 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    4323 ave 4323 max 4323 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    1.36211e+06 ave 1.36211e+06 max 1.36211e+06 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 1362111
+Ave neighs/atom = 153.27
+Ave special neighs/atom = 0.00540115
+Neighbor list builds = 0
+Dangerous builds = 0
+unfix 3
+fix 3 polymer spring tether 10 30 15 15 2
+run 5
+Memory usage per processor = 4.0961 Mbytes
+v_ftotal 
+   53.553822 
+   66.068132 
+   63.348365 
+   89.582734 
+    55.00273 
+   115.56849 
+Loop time of 0.0892 on 1 procs for 5 steps with 8887 atoms
+
+Performance: 96860.987 tau/day, 56.054 timesteps/s
+99.9% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.088799   | 0.088799   | 0.088799   |   nan | 99.55
+Bond    | 4e-06      | 4e-06      | 4e-06      |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.00011    | 0.00011    | 0.00011    |   0.0 |  0.12
+Output  | 8.4e-05    | 8.4e-05    | 8.4e-05    |   0.0 |  0.09
+Modify  | 0.000148   | 0.000148   | 0.000148   |   0.0 |  0.17
+Other   |            | 5.5e-05    |            |       |  0.06
+
+Nlocal:    8887 ave 8887 max 8887 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    4323 ave 4323 max 4323 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    1.36211e+06 ave 1.36211e+06 max 1.36211e+06 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 1362111
+Ave neighs/atom = 153.27
+Ave special neighs/atom = 0.00540115
+Neighbor list builds = 0
+Dangerous builds = 0
+unfix 3
+fix 3 polymer spring tether 10 30 15 15 2
+run 5
+Memory usage per processor = 4.0961 Mbytes
+v_ftotal 
+   95.034371 
+   74.117052 
+   57.981105 
+   93.643963 
+   57.323491 
+   68.549942 
+Loop time of 0.093424 on 1 procs for 5 steps with 8887 atoms
+
+Performance: 92481.589 tau/day, 53.519 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.093007   | 0.093007   | 0.093007   |   0.0 | 99.55
+Bond    | 3e-06      | 3e-06      | 3e-06      |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.000119   | 0.000119   | 0.000119   |   0.0 |  0.13
+Output  | 8e-05      | 8e-05      | 8e-05      |   0.0 |  0.09
+Modify  | 0.000151   | 0.000151   | 0.000151   |   0.0 |  0.16
+Other   |            | 6.4e-05    |            |       |  0.07
+
+Nlocal:    8887 ave 8887 max 8887 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    4323 ave 4323 max 4323 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    1.36211e+06 ave 1.36211e+06 max 1.36211e+06 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 1362111
+Ave neighs/atom = 153.27
+Ave special neighs/atom = 0.00540115
+Neighbor list builds = 0
+Dangerous builds = 0
+unfix 3
+fix 3 polymer spring tether 10 30 15 15 3
+run 5
+Memory usage per processor = 4.0961 Mbytes
+v_ftotal 
+   55.948919 
+   36.079971 
+   46.935102 
+   54.810867 
+   71.368064 
+   22.283741 
+Loop time of 0.089127 on 1 procs for 5 steps with 8887 atoms
+
+Performance: 96940.321 tau/day, 56.100 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.088714   | 0.088714   | 0.088714   |   0.0 | 99.54
+Bond    | 1e-06      | 1e-06      | 1e-06      |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.000115   | 0.000115   | 0.000115   |   0.0 |  0.13
+Output  | 8.8e-05    | 8.8e-05    | 8.8e-05    |   0.0 |  0.10
+Modify  | 0.000153   | 0.000153   | 0.000153   |   0.0 |  0.17
+Other   |            | 5.6e-05    |            |       |  0.06
+
+Nlocal:    8887 ave 8887 max 8887 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    4323 ave 4323 max 4323 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    1.36211e+06 ave 1.36211e+06 max 1.36211e+06 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 1362111
+Ave neighs/atom = 153.27
+Ave special neighs/atom = 0.00540115
+Neighbor list builds = 0
+Dangerous builds = 0
+unfix 3
+fix 3 polymer spring tether 10 30 15 15 3
+run 5
+Memory usage per processor = 4.0961 Mbytes
+v_ftotal 
+   18.650289 
+   66.730803 
+   25.255555 
+   76.859924 
+   69.236172 
+   7.3960331 
+Loop time of 0.091068 on 1 procs for 5 steps with 8887 atoms
+
+Performance: 94874.160 tau/day, 54.904 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.090666   | 0.090666   | 0.090666   |   0.0 | 99.56
+Bond    | 2e-06      | 2e-06      | 2e-06      |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.000117   | 0.000117   | 0.000117   |   0.0 |  0.13
+Output  | 7.4e-05    | 7.4e-05    | 7.4e-05    |   0.0 |  0.08
+Modify  | 0.000153   | 0.000153   | 0.000153   |   0.0 |  0.17
+Other   |            | 5.6e-05    |            |       |  0.06
+
+Nlocal:    8887 ave 8887 max 8887 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    4323 ave 4323 max 4323 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    1.36211e+06 ave 1.36211e+06 max 1.36211e+06 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 1362111
+Ave neighs/atom = 153.27
+Ave special neighs/atom = 0.00540115
+Neighbor list builds = 0
+Dangerous builds = 0
+unfix 3
+fix 3 polymer spring tether 10 30 15 15 4
+run 5
+Memory usage per processor = 4.0961 Mbytes
+v_ftotal 
+  -15.245974 
+   25.984517 
+   44.746469 
+   44.858764 
+   16.821957 
+   28.021859 
+Loop time of 0.090669 on 1 procs for 5 steps with 8887 atoms
+
+Performance: 95291.665 tau/day, 55.146 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.090278   | 0.090278   | 0.090278   |   0.0 | 99.57
+Bond    | 3e-06      | 3e-06      | 3e-06      |   nan |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.000112   | 0.000112   | 0.000112   |   0.0 |  0.12
+Output  | 6.9e-05    | 6.9e-05    | 6.9e-05    |   0.0 |  0.08
+Modify  | 0.000149   | 0.000149   | 0.000149   |   0.0 |  0.16
+Other   |            | 5.8e-05    |            |       |  0.06
+
+Nlocal:    8887 ave 8887 max 8887 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    4323 ave 4323 max 4323 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    1.36211e+06 ave 1.36211e+06 max 1.36211e+06 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 1362111
+Ave neighs/atom = 153.27
+Ave special neighs/atom = 0.00540115
+Neighbor list builds = 0
+Dangerous builds = 0
+unfix 3
+fix 3 polymer spring tether 10 30 15 15 4
+run 5
+Memory usage per processor = 4.0961 Mbytes
+v_ftotal 
+   3.0231329 
+   56.248143 
+   36.660759 
+   39.984684 
+   21.900249 
+  -3.2870631 
+Loop time of 0.091419 on 1 procs for 5 steps with 8887 atoms
+
+Performance: 94509.894 tau/day, 54.693 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.091007   | 0.091007   | 0.091007   |   0.0 | 99.55
+Bond    | 2e-06      | 2e-06      | 2e-06      |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.000116   | 0.000116   | 0.000116   |   0.0 |  0.13
+Output  | 8.6e-05    | 8.6e-05    | 8.6e-05    |   0.0 |  0.09
+Modify  | 0.000152   | 0.000152   | 0.000152   |   0.0 |  0.17
+Other   |            | 5.6e-05    |            |       |  0.06
+
+Nlocal:    8887 ave 8887 max 8887 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    4323 ave 4323 max 4323 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    1.36211e+06 ave 1.36211e+06 max 1.36211e+06 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 1362111
+Ave neighs/atom = 153.27
+Ave special neighs/atom = 0.00540115
+Neighbor list builds = 0
+Dangerous builds = 0
+unfix 3
+fix 3 polymer spring tether 10 30 15 15 5
+run 5
+Memory usage per processor = 4.0961 Mbytes
+v_ftotal 
+  -6.3643846 
+   -8.308492 
+  -3.2648237 
+  -31.702548 
+  -19.482706 
+   1.3169152 
+Loop time of 0.091689 on 1 procs for 5 steps with 8887 atoms
+
+Performance: 94231.587 tau/day, 54.532 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.091282   | 0.091282   | 0.091282   |   0.0 | 99.56
+Bond    | 3e-06      | 3e-06      | 3e-06      |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.000115   | 0.000115   | 0.000115   |   0.0 |  0.13
+Output  | 7.6e-05    | 7.6e-05    | 7.6e-05    |   0.0 |  0.08
+Modify  | 0.000155   | 0.000155   | 0.000155   |   0.0 |  0.17
+Other   |            | 5.8e-05    |            |       |  0.06
+
+Nlocal:    8887 ave 8887 max 8887 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    4323 ave 4323 max 4323 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    1.36211e+06 ave 1.36211e+06 max 1.36211e+06 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 1362111
+Ave neighs/atom = 153.27
+Ave special neighs/atom = 0.00540115
+Neighbor list builds = 0
+Dangerous builds = 0
+unfix 3
+fix 3 polymer spring tether 10 30 15 15 5
+run 5
+Memory usage per processor = 4.0961 Mbytes
+v_ftotal 
+  -44.713726 
+  -21.367857 
+  -34.966062 
+   16.869496 
+   9.6134126 
+   53.481974 
+Loop time of 0.092175 on 1 procs for 5 steps with 8887 atoms
+
+Performance: 93734.744 tau/day, 54.245 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.091749   | 0.091749   | 0.091749   |   nan | 99.54
+Bond    | 5e-06      | 5e-06      | 5e-06      |   0.0 |  0.01
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.000117   | 0.000117   | 0.000117   |   0.0 |  0.13
+Output  | 8.5e-05    | 8.5e-05    | 8.5e-05    |   0.0 |  0.09
+Modify  | 0.000158   | 0.000158   | 0.000158   |   0.0 |  0.17
+Other   |            | 6.1e-05    |            |       |  0.07
+
+Nlocal:    8887 ave 8887 max 8887 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    4323 ave 4323 max 4323 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    1.36211e+06 ave 1.36211e+06 max 1.36211e+06 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 1362111
+Ave neighs/atom = 153.27
+Ave special neighs/atom = 0.00540115
+Neighbor list builds = 0
+Dangerous builds = 0
+unfix 3
+fix 3 polymer spring tether 10 30 15 15 6
+run 5
+Memory usage per processor = 4.0961 Mbytes
+v_ftotal 
+  -61.629644 
+  -14.161124 
+  -18.389764 
+  -8.0783093 
+  -40.502392 
+  -43.985895 
+Loop time of 0.097965 on 1 procs for 5 steps with 8887 atoms
+
+Performance: 88194.763 tau/day, 51.039 timesteps/s
+99.9% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.097464   | 0.097464   | 0.097464   |   0.0 | 99.49
+Bond    | 5e-06      | 5e-06      | 5e-06      |   0.0 |  0.01
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.000152   | 0.000152   | 0.000152   |   0.0 |  0.16
+Output  | 0.0001     | 0.0001     | 0.0001     |   0.0 |  0.10
+Modify  | 0.000177   | 0.000177   | 0.000177   |   0.0 |  0.18
+Other   |            | 6.7e-05    |            |       |  0.07
+
+Nlocal:    8887 ave 8887 max 8887 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    4323 ave 4323 max 4323 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    1.36212e+06 ave 1.36212e+06 max 1.36212e+06 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 1362117
+Ave neighs/atom = 153.271
+Ave special neighs/atom = 0.00540115
+Neighbor list builds = 0
+Dangerous builds = 0
+unfix 3
+fix 3 polymer spring tether 10 30 15 15 6
+run 5
+Memory usage per processor = 4.0961 Mbytes
+v_ftotal 
+  0.61680878 
+  -54.064469 
+  -2.7562359 
+  -33.303284 
+  -5.0339411 
+   9.2809456 
+Loop time of 0.094667 on 1 procs for 5 steps with 8887 atoms
+
+Performance: 91267.284 tau/day, 52.817 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.094212   | 0.094212   | 0.094212   |   0.0 | 99.52
+Bond    | 2e-06      | 2e-06      | 2e-06      |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.000126   | 0.000126   | 0.000126   |   0.0 |  0.13
+Output  | 8.1e-05    | 8.1e-05    | 8.1e-05    |   0.0 |  0.09
+Modify  | 0.000182   | 0.000182   | 0.000182   |   nan |  0.19
+Other   |            | 6.4e-05    |            |       |  0.07
+
+Nlocal:    8887 ave 8887 max 8887 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    4323 ave 4323 max 4323 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    1.36214e+06 ave 1.36214e+06 max 1.36214e+06 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 1362143
+Ave neighs/atom = 153.274
+Ave special neighs/atom = 0.00540115
+Neighbor list builds = 0
+Dangerous builds = 0
+unfix 3
+fix 3 polymer spring tether 10 30 15 15 7
+run 5
+Memory usage per processor = 4.0961 Mbytes
+v_ftotal 
+  -23.805454 
+  -60.460329 
+  -12.606123 
+  -56.966454 
+  -16.203251 
+  -11.762205 
+Loop time of 0.101752 on 1 procs for 5 steps with 8887 atoms
+
+Performance: 84912.336 tau/day, 49.139 timesteps/s
+99.8% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.10114    | 0.10114    | 0.10114    |   0.0 | 99.40
+Bond    | 7e-06      | 7e-06      | 7e-06      |   0.0 |  0.01
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.000172   | 0.000172   | 0.000172   |   0.0 |  0.17
+Output  | 0.000126   | 0.000126   | 0.000126   |   0.0 |  0.12
+Modify  | 0.000224   | 0.000224   | 0.000224   |   0.0 |  0.22
+Other   |            | 8.1e-05    |            |       |  0.08
+
+Nlocal:    8887 ave 8887 max 8887 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    4323 ave 4323 max 4323 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    1.3622e+06 ave 1.3622e+06 max 1.3622e+06 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 1362203
+Ave neighs/atom = 153.28
+Ave special neighs/atom = 0.00540115
+Neighbor list builds = 0
+Dangerous builds = 0
+unfix 3
+fix 3 polymer spring tether 10 30 15 15 7
+run 5
+Memory usage per processor = 4.0961 Mbytes
+v_ftotal 
+   9.6466398 
+  -34.466371 
+  0.34817628 
+   -37.98923 
+  -65.091829 
+  -253.07719 
+Loop time of 0.094268 on 1 procs for 5 steps with 8887 atoms
+
+Performance: 91653.583 tau/day, 53.040 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.093831   | 0.093831   | 0.093831   |   0.0 | 99.54
+Bond    | 3e-06      | 3e-06      | 3e-06      |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.000122   | 0.000122   | 0.000122   |   0.0 |  0.13
+Output  | 8e-05      | 8e-05      | 8e-05      |   0.0 |  0.08
+Modify  | 0.00016    | 0.00016    | 0.00016    |   0.0 |  0.17
+Other   |            | 7.2e-05    |            |       |  0.08
+
+Nlocal:    8887 ave 8887 max 8887 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    4323 ave 4323 max 4323 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    1.36229e+06 ave 1.36229e+06 max 1.36229e+06 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 1362290
+Ave neighs/atom = 153.29
+Ave special neighs/atom = 0.00540115
+Neighbor list builds = 0
+Dangerous builds = 0
+unfix 3
+fix 3 polymer spring tether 10 30 15 15 8
+run 5
+Memory usage per processor = 4.0961 Mbytes
+v_ftotal 
+  -170.32193 
+  -64.217555 
+  -10.968646 
+  -19.636176 
+  -96.890817 
+  -302.41698 
+Loop time of 0.092547 on 1 procs for 5 steps with 8887 atoms
+
+Performance: 93357.969 tau/day, 54.027 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.092136   | 0.092136   | 0.092136   |   0.0 | 99.56
+Bond    | 2e-06      | 2e-06      | 2e-06      |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.00012    | 0.00012    | 0.00012    |   0.0 |  0.13
+Output  | 7.4e-05    | 7.4e-05    | 7.4e-05    |   0.0 |  0.08
+Modify  | 0.000159   | 0.000159   | 0.000159   |   0.0 |  0.17
+Other   |            | 5.6e-05    |            |       |  0.06
+
+Nlocal:    8887 ave 8887 max 8887 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    4323 ave 4323 max 4323 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    1.3624e+06 ave 1.3624e+06 max 1.3624e+06 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 1362401
+Ave neighs/atom = 153.303
+Ave special neighs/atom = 0.00540115
+Neighbor list builds = 0
+Dangerous builds = 0
+unfix 3
+fix 3 polymer spring tether 10 30 15 15 8
+run 5
+Memory usage per processor = 4.0961 Mbytes
+v_ftotal 
+  -249.08464 
+  -261.74659 
+  -72.000488 
+  -15.768827 
+  -8.8137152 
+   17.806204 
+Loop time of 0.091508 on 1 procs for 5 steps with 8887 atoms
+
+Performance: 94417.974 tau/day, 54.640 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.09109    | 0.09109    | 0.09109    |   0.0 | 99.54
+Bond    | 4e-06      | 4e-06      | 4e-06      |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.000115   | 0.000115   | 0.000115   |   0.0 |  0.13
+Output  | 8.6e-05    | 8.6e-05    | 8.6e-05    |   0.0 |  0.09
+Modify  | 0.000155   | 0.000155   | 0.000155   |   0.0 |  0.17
+Other   |            | 5.8e-05    |            |       |  0.06
+
+Nlocal:    8887 ave 8887 max 8887 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    4323 ave 4323 max 4323 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    1.36249e+06 ave 1.36249e+06 max 1.36249e+06 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 1362487
+Ave neighs/atom = 153.312
+Ave special neighs/atom = 0.00540115
+Neighbor list builds = 0
+Dangerous builds = 0
+unfix 3
+fix 3 polymer spring tether 10 30 15 15 9
+run 5
+Memory usage per processor = 4.0961 Mbytes
+v_ftotal 
+  -44.909263 
+  -9.3809135 
+  -2.1871343 
+  -73.928973 
+  -4.6531712 
+   16.902413 
+Loop time of 0.090541 on 1 procs for 5 steps with 8887 atoms
+
+Performance: 95426.381 tau/day, 55.224 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.090153   | 0.090153   | 0.090153   |   0.0 | 99.57
+Bond    | 2e-06      | 2e-06      | 2e-06      |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.000112   | 0.000112   | 0.000112   |   0.0 |  0.12
+Output  | 6.7e-05    | 6.7e-05    | 6.7e-05    |   0.0 |  0.07
+Modify  | 0.000148   | 0.000148   | 0.000148   |   0.0 |  0.16
+Other   |            | 5.9e-05    |            |       |  0.07
+
+Nlocal:    8887 ave 8887 max 8887 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    4323 ave 4323 max 4323 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    1.36251e+06 ave 1.36251e+06 max 1.36251e+06 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 1362510
+Ave neighs/atom = 153.315
+Ave special neighs/atom = 0.00540115
+Neighbor list builds = 0
+Dangerous builds = 0
+unfix 3
+fix 3 polymer spring tether 10 30 15 15 9
+run 5
+Memory usage per processor = 4.0961 Mbytes
+v_ftotal 
+   -3.602415 
+  -18.314839 
+  -73.423009 
+   -85.84638 
+  -22.208005 
+   25.126797 
+Loop time of 0.092521 on 1 procs for 5 steps with 8887 atoms
+
+Performance: 93384.205 tau/day, 54.042 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.09211    | 0.09211    | 0.09211    |   0.0 | 99.56
+Bond    | 4e-06      | 4e-06      | 4e-06      |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.000119   | 0.000119   | 0.000119   |   0.0 |  0.13
+Output  | 7e-05      | 7e-05      | 7e-05      |   0.0 |  0.08
+Modify  | 0.000159   | 0.000159   | 0.000159   |   0.0 |  0.17
+Other   |            | 5.9e-05    |            |       |  0.06
+
+Nlocal:    8887 ave 8887 max 8887 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    4323 ave 4323 max 4323 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    1.36255e+06 ave 1.36255e+06 max 1.36255e+06 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 1362549
+Ave neighs/atom = 153.319
+Ave special neighs/atom = 0.00540115
+Neighbor list builds = 0
+Dangerous builds = 0
+unfix 3
+fix 3 polymer spring tether 10 30 15 15 10
+run 5
+Memory usage per processor = 4.0961 Mbytes
+v_ftotal 
+  -33.437156 
+  -80.315183 
+  -87.895976 
+  -48.704314 
+  -18.437043 
+   -54.00707 
+Loop time of 0.090217 on 1 procs for 5 steps with 8887 atoms
+
+Performance: 95769.090 tau/day, 55.422 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.089835   | 0.089835   | 0.089835   |   0.0 | 99.58
+Bond    | 4e-06      | 4e-06      | 4e-06      |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.000112   | 0.000112   | 0.000112   |   0.0 |  0.12
+Output  | 6.5e-05    | 6.5e-05    | 6.5e-05    |   0.0 |  0.07
+Modify  | 0.000148   | 0.000148   | 0.000148   |   0.0 |  0.16
+Other   |            | 5.3e-05    |            |       |  0.06
+
+Nlocal:    8887 ave 8887 max 8887 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    4323 ave 4323 max 4323 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    1.36263e+06 ave 1.36263e+06 max 1.36263e+06 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 1362627
+Ave neighs/atom = 153.328
+Ave special neighs/atom = 0.00540115
+Neighbor list builds = 0
+Dangerous builds = 0
+unfix 3
+fix 3 polymer spring tether 10 30 15 15 10
+run 5
+Memory usage per processor = 4.0961 Mbytes
+v_ftotal 
+  -5.7994456 
+  -63.161676 
+   -28.44936 
+  -63.019922 
+  -34.754988 
+  -72.110805 
+Loop time of 0.090818 on 1 procs for 5 steps with 8887 atoms
+
+Performance: 95135.326 tau/day, 55.055 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.090422   | 0.090422   | 0.090422   |   0.0 | 99.56
+Bond    | 0          | 0          | 0          |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.000129   | 0.000129   | 0.000129   |   0.0 |  0.14
+Output  | 6.3e-05    | 6.3e-05    | 6.3e-05    |   0.0 |  0.07
+Modify  | 0.000149   | 0.000149   | 0.000149   |   0.0 |  0.16
+Other   |            | 5.5e-05    |            |       |  0.06
+
+Nlocal:    8887 ave 8887 max 8887 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    4323 ave 4323 max 4323 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    1.36269e+06 ave 1.36269e+06 max 1.36269e+06 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 1362693
+Ave neighs/atom = 153.336
+Ave special neighs/atom = 0.00540115
+Neighbor list builds = 0
+Dangerous builds = 0
+unfix 3
+fix 3 polymer spring tether 10 30 15 15 11
+run 5
+Memory usage per processor = 4.0961 Mbytes
+v_ftotal 
+  -77.966885 
+  -100.85928 
+  -13.909131 
+  -56.265885 
+  -39.131564 
+  -42.050271 
+Loop time of 0.091764 on 1 procs for 5 steps with 8887 atoms
+
+Performance: 94154.570 tau/day, 54.488 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.091376   | 0.091376   | 0.091376   |   0.0 | 99.58
+Bond    | 3e-06      | 3e-06      | 3e-06      |   nan |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.000112   | 0.000112   | 0.000112   |   0.0 |  0.12
+Output  | 6.6e-05    | 6.6e-05    | 6.6e-05    |   0.0 |  0.07
+Modify  | 0.000153   | 0.000153   | 0.000153   |   0.0 |  0.17
+Other   |            | 5.4e-05    |            |       |  0.06
+
+Nlocal:    8887 ave 8887 max 8887 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    4323 ave 4323 max 4323 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    1.36274e+06 ave 1.36274e+06 max 1.36274e+06 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 1362740
+Ave neighs/atom = 153.341
+Ave special neighs/atom = 0.00540115
+Neighbor list builds = 0
+Dangerous builds = 0
+unfix 3
+fix 3 polymer spring tether 10 30 15 15 11
+run 5
+Memory usage per processor = 4.0961 Mbytes
+v_ftotal 
+  -69.304133 
+  -91.631383 
+  -53.449726 
+  -29.759062 
+  -79.002119 
+  -71.600206 
+Loop time of 0.091855 on 1 procs for 5 steps with 8887 atoms
+
+Performance: 94061.292 tau/day, 54.434 timesteps/s
+99.8% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.091424   | 0.091424   | 0.091424   |   0.0 | 99.53
+Bond    | 5e-06      | 5e-06      | 5e-06      |   0.0 |  0.01
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.000134   | 0.000134   | 0.000134   |   0.0 |  0.15
+Output  | 7.7e-05    | 7.7e-05    | 7.7e-05    |   0.0 |  0.08
+Modify  | 0.000157   | 0.000157   | 0.000157   |   0.0 |  0.17
+Other   |            | 5.8e-05    |            |       |  0.06
+
+Nlocal:    8887 ave 8887 max 8887 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    4323 ave 4323 max 4323 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    1.36277e+06 ave 1.36277e+06 max 1.36277e+06 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 1362771
+Ave neighs/atom = 153.344
+Ave special neighs/atom = 0.00540115
+Neighbor list builds = 0
+Dangerous builds = 0
+unfix 3
+fix 3 polymer spring tether 10 30 15 15 12
+run 5
+Memory usage per processor = 4.0961 Mbytes
+v_ftotal 
+  -89.964152 
+  -79.319777 
+  -84.283182 
+  -128.69408 
+   -52.30532 
+  -24.493448 
+Loop time of 0.090431 on 1 procs for 5 steps with 8887 atoms
+
+Performance: 95542.458 tau/day, 55.291 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.09003    | 0.09003    | 0.09003    |   0.0 | 99.56
+Bond    | 3e-06      | 3e-06      | 3e-06      |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.000115   | 0.000115   | 0.000115   |   0.0 |  0.13
+Output  | 7.3e-05    | 7.3e-05    | 7.3e-05    |   0.0 |  0.08
+Modify  | 0.000151   | 0.000151   | 0.000151   |   0.0 |  0.17
+Other   |            | 5.9e-05    |            |       |  0.07
+
+Nlocal:    8887 ave 8887 max 8887 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    4323 ave 4323 max 4323 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    1.36279e+06 ave 1.36279e+06 max 1.36279e+06 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 1362793
+Ave neighs/atom = 153.347
+Ave special neighs/atom = 0.00540115
+Neighbor list builds = 0
+Dangerous builds = 0
+unfix 3
+fix 3 polymer spring tether 10 30 15 15 12
+run 5
+Memory usage per processor = 4.0961 Mbytes
+v_ftotal 
+  -98.083006 
+  -48.990716 
+  -94.483791 
+  -39.152839 
+  -48.480667 
+  -108.97961 
+Loop time of 0.088709 on 1 procs for 5 steps with 8887 atoms
+
+Performance: 97397.107 tau/day, 56.364 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.088275   | 0.088275   | 0.088275   |   0.0 | 99.51
+Bond    | 3e-06      | 3e-06      | 3e-06      |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.000141   | 0.000141   | 0.000141   |   0.0 |  0.16
+Output  | 8.5e-05    | 8.5e-05    | 8.5e-05    |   0.0 |  0.10
+Modify  | 0.00015    | 0.00015    | 0.00015    |   0.0 |  0.17
+Other   |            | 5.5e-05    |            |       |  0.06
+
+Nlocal:    8887 ave 8887 max 8887 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    4323 ave 4323 max 4323 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    1.36281e+06 ave 1.36281e+06 max 1.36281e+06 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 1362813
+Ave neighs/atom = 153.349
+Ave special neighs/atom = 0.00540115
+Neighbor list builds = 0
+Dangerous builds = 0
+unfix 3
+fix 3 polymer spring tether 10 30 15 15 13
+run 5
+Memory usage per processor = 4.0961 Mbytes
+v_ftotal 
+  -106.26705 
+  -145.39454 
+  -229.61274 
+  -224.80546 
+  -78.438568 
+  -46.832054 
+Loop time of 0.089848 on 1 procs for 5 steps with 8887 atoms
+
+Performance: 96162.408 tau/day, 55.650 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.08947    | 0.08947    | 0.08947    |   0.0 | 99.58
+Bond    | 1e-06      | 1e-06      | 1e-06      |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.000113   | 0.000113   | 0.000113   |   0.0 |  0.13
+Output  | 6.1e-05    | 6.1e-05    | 6.1e-05    |   0.0 |  0.07
+Modify  | 0.000147   | 0.000147   | 0.000147   |   0.0 |  0.16
+Other   |            | 5.6e-05    |            |       |  0.06
+
+Nlocal:    8887 ave 8887 max 8887 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    4323 ave 4323 max 4323 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    1.36283e+06 ave 1.36283e+06 max 1.36283e+06 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 1362826
+Ave neighs/atom = 153.351
+Ave special neighs/atom = 0.00540115
+Neighbor list builds = 0
+Dangerous builds = 0
+unfix 3
+fix 3 polymer spring tether 10 30 15 15 13
+run 5
+Memory usage per processor = 4.0961 Mbytes
+v_ftotal 
+   7.5448806 
+   3.3581282 
+  -36.207919 
+  -41.758234 
+  -201.66573 
+  -78.705792 
+Loop time of 0.089047 on 1 procs for 5 steps with 8887 atoms
+
+Performance: 97027.412 tau/day, 56.150 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.088656   | 0.088656   | 0.088656   |   0.0 | 99.56
+Bond    | 2e-06      | 2e-06      | 2e-06      |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.00011    | 0.00011    | 0.00011    |   0.0 |  0.12
+Output  | 7.4e-05    | 7.4e-05    | 7.4e-05    |   0.0 |  0.08
+Modify  | 0.000148   | 0.000148   | 0.000148   |   0.0 |  0.17
+Other   |            | 5.7e-05    |            |       |  0.06
+
+Nlocal:    8887 ave 8887 max 8887 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    4323 ave 4323 max 4323 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    1.36282e+06 ave 1.36282e+06 max 1.36282e+06 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 1362819
+Ave neighs/atom = 153.35
+Ave special neighs/atom = 0.00540115
+Neighbor list builds = 0
+Dangerous builds = 0
+unfix 3
+fix 3 polymer spring tether 10 30 15 15 14
+run 5
+Memory usage per processor = 4.0961 Mbytes
+v_ftotal 
+  -99.996253 
+   -19.65903 
+  -47.875919 
+  -24.517272 
+  -4.2098932 
+   12.560138 
+Loop time of 0.090813 on 1 procs for 5 steps with 8887 atoms
+
+Performance: 95140.564 tau/day, 55.058 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.090413   | 0.090413   | 0.090413   |   0.0 | 99.56
+Bond    | 3e-06      | 3e-06      | 3e-06      |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.000113   | 0.000113   | 0.000113   |   0.0 |  0.12
+Output  | 8.2e-05    | 8.2e-05    | 8.2e-05    |   0.0 |  0.09
+Modify  | 0.000147   | 0.000147   | 0.000147   |   0.0 |  0.16
+Other   |            | 5.5e-05    |            |       |  0.06
+
+Nlocal:    8887 ave 8887 max 8887 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    4323 ave 4323 max 4323 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    1.36277e+06 ave 1.36277e+06 max 1.36277e+06 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 1362772
+Ave neighs/atom = 153.344
+Ave special neighs/atom = 0.00540115
+Neighbor list builds = 0
+Dangerous builds = 0
+unfix 3
+fix 3 polymer spring tether 10 30 15 15 14
+run 5
+Memory usage per processor = 4.0961 Mbytes
+v_ftotal 
+   -27.13969 
+    9.200484 
+  -12.755495 
+   25.088717 
+    21.24925 
+   25.695417 
+Loop time of 0.089244 on 1 procs for 5 steps with 8887 atoms
+
+Performance: 96813.231 tau/day, 56.026 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.088845   | 0.088845   | 0.088845   |   nan | 99.55
+Bond    | 5e-06      | 5e-06      | 5e-06      |   0.0 |  0.01
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.00011    | 0.00011    | 0.00011    |   0.0 |  0.12
+Output  | 8.1e-05    | 8.1e-05    | 8.1e-05    |   0.0 |  0.09
+Modify  | 0.000151   | 0.000151   | 0.000151   |   0.0 |  0.17
+Other   |            | 5.2e-05    |            |       |  0.06
+
+Nlocal:    8887 ave 8887 max 8887 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    4323 ave 4323 max 4323 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    1.36272e+06 ave 1.36272e+06 max 1.36272e+06 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 1362723
+Ave neighs/atom = 153.339
+Ave special neighs/atom = 0.00540115
+Neighbor list builds = 0
+Dangerous builds = 0
+unfix 3
+fix 3 polymer spring tether 10 30 15 15 15
+run 5
+Memory usage per processor = 4.0961 Mbytes
+v_ftotal 
+  -26.806506 
+  -35.386953 
+   38.462103 
+   49.405846 
+   54.911156 
+  -6.7445746 
+Loop time of 0.089123 on 1 procs for 5 steps with 8887 atoms
+
+Performance: 96944.672 tau/day, 56.102 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.08871    | 0.08871    | 0.08871    |   0.0 | 99.54
+Bond    | 3e-06      | 3e-06      | 3e-06      |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.000114   | 0.000114   | 0.000114   |   0.0 |  0.13
+Output  | 7.7e-05    | 7.7e-05    | 7.7e-05    |   0.0 |  0.09
+Modify  | 0.000163   | 0.000163   | 0.000163   |   0.0 |  0.18
+Other   |            | 5.6e-05    |            |       |  0.06
+
+Nlocal:    8887 ave 8887 max 8887 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    4323 ave 4323 max 4323 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    1.36267e+06 ave 1.36267e+06 max 1.36267e+06 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 1362668
+Ave neighs/atom = 153.333
+Ave special neighs/atom = 0.00540115
+Neighbor list builds = 0
+Dangerous builds = 0
+unfix 3
+fix 3 polymer spring tether 10 30 15 15 15
+run 5
+Memory usage per processor = 4.0961 Mbytes
+v_ftotal 
+  -38.808333 
+   -74.74726 
+  -136.75463 
+  -77.216297 
+   20.932903 
+  -9.1882003 
+Loop time of 0.089036 on 1 procs for 5 steps with 8887 atoms
+
+Performance: 97039.400 tau/day, 56.157 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.088634   | 0.088634   | 0.088634   |   0.0 | 99.55
+Bond    | 2e-06      | 2e-06      | 2e-06      |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.000111   | 0.000111   | 0.000111   |   nan |  0.12
+Output  | 8.2e-05    | 8.2e-05    | 8.2e-05    |   0.0 |  0.09
+Modify  | 0.000148   | 0.000148   | 0.000148   |   0.0 |  0.17
+Other   |            | 5.9e-05    |            |       |  0.07
+
+Nlocal:    8887 ave 8887 max 8887 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    4323 ave 4323 max 4323 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    1.36265e+06 ave 1.36265e+06 max 1.36265e+06 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 1362651
+Ave neighs/atom = 153.331
+Ave special neighs/atom = 0.00540115
+Neighbor list builds = 0
+Dangerous builds = 0
+unfix 3
+fix 3 polymer spring tether 10 30 15 15 16
+run 5
+Memory usage per processor = 4.0961 Mbytes
+v_ftotal 
+    34.00255 
+   -9.298584 
+   -34.65353 
+  -121.15084 
+  -87.289206 
+  -27.590331 
+Loop time of 0.089388 on 1 procs for 5 steps with 8887 atoms
+
+Performance: 96657.269 tau/day, 55.936 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.089      | 0.089      | 0.089      |   0.0 | 99.57
+Bond    | 3e-06      | 3e-06      | 3e-06      |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.000112   | 0.000112   | 0.000112   |   0.0 |  0.13
+Output  | 7e-05      | 7e-05      | 7e-05      |   0.0 |  0.08
+Modify  | 0.000149   | 0.000149   | 0.000149   |   0.0 |  0.17
+Other   |            | 5.4e-05    |            |       |  0.06
+
+Nlocal:    8887 ave 8887 max 8887 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    4323 ave 4323 max 4323 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    1.36263e+06 ave 1.36263e+06 max 1.36263e+06 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 1362627
+Ave neighs/atom = 153.328
+Ave special neighs/atom = 0.00540115
+Neighbor list builds = 0
+Dangerous builds = 0
+unfix 3
+fix 3 polymer spring tether 10 30 15 15 16
+run 5
+Memory usage per processor = 4.0961 Mbytes
+v_ftotal 
+  -51.597333 
+   5.3278408 
+   8.3875722 
+  -18.156289 
+  -63.098062 
+   -7.932474 
+Loop time of 0.095594 on 1 procs for 5 steps with 8887 atoms
+
+Performance: 90382.242 tau/day, 52.305 timesteps/s
+99.9% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.095117   | 0.095117   | 0.095117   |   0.0 | 99.50
+Bond    | 4e-06      | 4e-06      | 4e-06      |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.000144   | 0.000144   | 0.000144   |   0.0 |  0.15
+Output  | 8.5e-05    | 8.5e-05    | 8.5e-05    |   0.0 |  0.09
+Modify  | 0.000183   | 0.000183   | 0.000183   |   nan |  0.19
+Other   |            | 6.1e-05    |            |       |  0.06
+
+Nlocal:    8887 ave 8887 max 8887 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    4323 ave 4323 max 4323 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    1.36259e+06 ave 1.36259e+06 max 1.36259e+06 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 1362587
+Ave neighs/atom = 153.324
+Ave special neighs/atom = 0.00540115
+Neighbor list builds = 0
+Dangerous builds = 0
+unfix 3
+fix 3 polymer spring tether 10 30 15 15 17
+run 5
+Memory usage per processor = 4.0961 Mbytes
+v_ftotal 
+  -20.886311 
+  -48.016245 
+  -24.579915 
+   3.1538452 
+  -25.208228 
+   35.115506 
+Loop time of 0.089114 on 1 procs for 5 steps with 8887 atoms
+
+Performance: 96954.463 tau/day, 56.108 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.088728   | 0.088728   | 0.088728   |   0.0 | 99.57
+Bond    | 5e-06      | 5e-06      | 5e-06      |   0.0 |  0.01
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.000112   | 0.000112   | 0.000112   |   0.0 |  0.13
+Output  | 6.6e-05    | 6.6e-05    | 6.6e-05    |   0.0 |  0.07
+Modify  | 0.000151   | 0.000151   | 0.000151   |   0.0 |  0.17
+Other   |            | 5.2e-05    |            |       |  0.06
+
+Nlocal:    8887 ave 8887 max 8887 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    4323 ave 4323 max 4323 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    1.36256e+06 ave 1.36256e+06 max 1.36256e+06 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 1362556
+Ave neighs/atom = 153.32
+Ave special neighs/atom = 0.00540115
+Neighbor list builds = 0
+Dangerous builds = 0
+unfix 3
+fix 3 polymer spring tether 10 30 15 15 17
+run 5
+Memory usage per processor = 4.0961 Mbytes
+v_ftotal 
+   10.631544 
+  -15.431536 
+  -26.224658 
+  -27.794103 
+  -15.624236 
+  -105.88608 
+Loop time of 0.09328 on 1 procs for 5 steps with 8887 atoms
+
+Performance: 92624.357 tau/day, 53.602 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.092852   | 0.092852   | 0.092852   |   0.0 | 99.54
+Bond    | 3e-06      | 3e-06      | 3e-06      |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.000117   | 0.000117   | 0.000117   |   0.0 |  0.13
+Output  | 7.8e-05    | 7.8e-05    | 7.8e-05    |   0.0 |  0.08
+Modify  | 0.000173   | 0.000173   | 0.000173   |   0.0 |  0.19
+Other   |            | 5.7e-05    |            |       |  0.06
+
+Nlocal:    8887 ave 8887 max 8887 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    4323 ave 4323 max 4323 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    1.36256e+06 ave 1.36256e+06 max 1.36256e+06 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 1362555
+Ave neighs/atom = 153.32
+Ave special neighs/atom = 0.00540115
+Neighbor list builds = 0
+Dangerous builds = 0
+unfix 3
+fix 3 polymer spring tether 10 30 15 15 18
+run 5
+Memory usage per processor = 4.0961 Mbytes
+v_ftotal 
+   -86.39414 
+  -119.72566 
+  -121.68762 
+  -140.71432 
+  -95.450234 
+   11.965388 
+Loop time of 0.089499 on 1 procs for 5 steps with 8887 atoms
+
+Performance: 96537.391 tau/day, 55.867 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.08911    | 0.08911    | 0.08911    |   0.0 | 99.57
+Bond    | 3e-06      | 3e-06      | 3e-06      |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.000113   | 0.000113   | 0.000113   |   0.0 |  0.13
+Output  | 6.9e-05    | 6.9e-05    | 6.9e-05    |   0.0 |  0.08
+Modify  | 0.000148   | 0.000148   | 0.000148   |   0.0 |  0.17
+Other   |            | 5.6e-05    |            |       |  0.06
+
+Nlocal:    8887 ave 8887 max 8887 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    4323 ave 4323 max 4323 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    1.36258e+06 ave 1.36258e+06 max 1.36258e+06 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 1362578
+Ave neighs/atom = 153.323
+Ave special neighs/atom = 0.00540115
+Neighbor list builds = 0
+Dangerous builds = 0
+unfix 3
+fix 3 polymer spring tether 10 30 15 15 18
+run 5
+Memory usage per processor = 4.0961 Mbytes
+v_ftotal 
+  -33.126308 
+   18.502181 
+   25.248168 
+   9.0009483 
+   58.162955 
+   61.338296 
+Loop time of 0.089562 on 1 procs for 5 steps with 8887 atoms
+
+Performance: 96469.485 tau/day, 55.827 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.089171   | 0.089171   | 0.089171   |   nan | 99.56
+Bond    | 5e-06      | 5e-06      | 5e-06      |   0.0 |  0.01
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.000112   | 0.000112   | 0.000112   |   0.0 |  0.13
+Output  | 6.9e-05    | 6.9e-05    | 6.9e-05    |   0.0 |  0.08
+Modify  | 0.000149   | 0.000149   | 0.000149   |   0.0 |  0.17
+Other   |            | 5.6e-05    |            |       |  0.06
+
+Nlocal:    8887 ave 8887 max 8887 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    4323 ave 4323 max 4323 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    1.36257e+06 ave 1.36257e+06 max 1.36257e+06 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 1362573
+Ave neighs/atom = 153.322
+Ave special neighs/atom = 0.00540115
+Neighbor list builds = 0
+Dangerous builds = 0
+unfix 3
+fix 3 polymer spring tether 10 30 15 15 19
+run 5
+Memory usage per processor = 4.0961 Mbytes
+v_ftotal 
+   1.9819539 
+   64.168473 
+   69.627436 
+   76.608721 
+   52.876965 
+  -32.924728 
+Loop time of 0.08914 on 1 procs for 5 steps with 8887 atoms
+
+Performance: 96926.184 tau/day, 56.092 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.088739   | 0.088739   | 0.088739   |   0.0 | 99.55
+Bond    | 4e-06      | 4e-06      | 4e-06      |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.000114   | 0.000114   | 0.000114   |   0.0 |  0.13
+Output  | 7.6e-05    | 7.6e-05    | 7.6e-05    |   0.0 |  0.09
+Modify  | 0.000151   | 0.000151   | 0.000151   |   0.0 |  0.17
+Other   |            | 5.6e-05    |            |       |  0.06
+
+Nlocal:    8887 ave 8887 max 8887 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    4323 ave 4323 max 4323 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    1.36253e+06 ave 1.36253e+06 max 1.36253e+06 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 1362530
+Ave neighs/atom = 153.317
+Ave special neighs/atom = 0.00540115
+Neighbor list builds = 0
+Dangerous builds = 0
+unfix 3
+fix 3 polymer spring tether 10 30 15 15 19
+run 5
+Memory usage per processor = 4.0961 Mbytes
+v_ftotal 
+   10.038367 
+  -137.15731 
+  -212.44634 
+  -202.82849 
+   13.871237 
+   81.531346 
+Loop time of 0.089355 on 1 procs for 5 steps with 8887 atoms
+
+Performance: 96692.966 tau/day, 55.957 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.088946   | 0.088946   | 0.088946   |   nan | 99.54
+Bond    | 2e-06      | 2e-06      | 2e-06      |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.000114   | 0.000114   | 0.000114   |   0.0 |  0.13
+Output  | 8.3e-05    | 8.3e-05    | 8.3e-05    |   0.0 |  0.09
+Modify  | 0.000154   | 0.000154   | 0.000154   |   0.0 |  0.17
+Other   |            | 5.6e-05    |            |       |  0.06
+
+Nlocal:    8887 ave 8887 max 8887 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    4323 ave 4323 max 4323 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    1.36255e+06 ave 1.36255e+06 max 1.36255e+06 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 1362550
+Ave neighs/atom = 153.319
+Ave special neighs/atom = 0.00540115
+Neighbor list builds = 0
+Dangerous builds = 0
+unfix 3
+fix 3 polymer spring tether 10 30 15 15 20
+run 5
+Memory usage per processor = 4.0961 Mbytes
+v_ftotal 
+   43.640916 
+   40.272589 
+   38.182818 
+   63.794987 
+   75.282603 
+   41.773603 
+Loop time of 0.089472 on 1 procs for 5 steps with 8887 atoms
+
+Performance: 96566.524 tau/day, 55.883 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.089068   | 0.089068   | 0.089068   |   0.0 | 99.55
+Bond    | 3e-06      | 3e-06      | 3e-06      |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.000113   | 0.000113   | 0.000113   |   0.0 |  0.13
+Output  | 7.8e-05    | 7.8e-05    | 7.8e-05    |   0.0 |  0.09
+Modify  | 0.000152   | 0.000152   | 0.000152   |   0.0 |  0.17
+Other   |            | 5.8e-05    |            |       |  0.06
+
+Nlocal:    8887 ave 8887 max 8887 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    4323 ave 4323 max 4323 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    1.36254e+06 ave 1.36254e+06 max 1.36254e+06 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 1362536
+Ave neighs/atom = 153.318
+Ave special neighs/atom = 0.00540115
+Neighbor list builds = 0
+Dangerous builds = 0
+unfix 3
+fix 3 polymer spring tether 10 30 15 15 20
+run 5
+Memory usage per processor = 4.0961 Mbytes
+v_ftotal 
+   52.897321 
+   65.922416 
+   51.572992 
+   23.996242 
+  -23.719065 
+   7.2867136 
+Loop time of 0.089327 on 1 procs for 5 steps with 8887 atoms
+
+Performance: 96723.275 tau/day, 55.974 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.088921   | 0.088921   | 0.088921   |   0.0 | 99.55
+Bond    | 4e-06      | 4e-06      | 4e-06      |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.000117   | 0.000117   | 0.000117   |   0.0 |  0.13
+Output  | 7.5e-05    | 7.5e-05    | 7.5e-05    |   0.0 |  0.08
+Modify  | 0.000156   | 0.000156   | 0.000156   |   0.0 |  0.17
+Other   |            | 5.4e-05    |            |       |  0.06
+
+Nlocal:    8887 ave 8887 max 8887 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    4323 ave 4323 max 4323 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    1.36252e+06 ave 1.36252e+06 max 1.36252e+06 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 1362523
+Ave neighs/atom = 153.316
+Ave special neighs/atom = 0.00540115
+Neighbor list builds = 0
+Dangerous builds = 0
+unfix 3
+fix 3 polymer spring tether 10 30 15 15 21
+run 5
+Memory usage per processor = 4.0961 Mbytes
+v_ftotal 
+  -5.6983545 
+  -35.979666 
+  -54.492507 
+  -63.594912 
+  -40.106408 
+  -35.468276 
+Loop time of 0.089898 on 1 procs for 5 steps with 8887 atoms
+
+Performance: 96108.923 tau/day, 55.619 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.0895     | 0.0895     | 0.0895     |   0.0 | 99.56
+Bond    | 1e-06      | 1e-06      | 1e-06      |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.000115   | 0.000115   | 0.000115   |   0.0 |  0.13
+Output  | 7.3e-05    | 7.3e-05    | 7.3e-05    |   0.0 |  0.08
+Modify  | 0.00015    | 0.00015    | 0.00015    |   0.0 |  0.17
+Other   |            | 5.9e-05    |            |       |  0.07
+
+Nlocal:    8887 ave 8887 max 8887 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    4323 ave 4323 max 4323 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    1.36256e+06 ave 1.36256e+06 max 1.36256e+06 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 1362562
+Ave neighs/atom = 153.321
+Ave special neighs/atom = 0.00540115
+Neighbor list builds = 0
+Dangerous builds = 0
+unfix 3
+fix 3 polymer spring tether 10 30 15 15 21
+run 5
+Memory usage per processor = 4.0961 Mbytes
+v_ftotal 
+  -73.066872 
+     9.17683 
+   9.5920176 
+   74.580328 
+   40.407028 
+   3.4416688 
+Loop time of 0.089242 on 1 procs for 5 steps with 8887 atoms
+
+Performance: 96815.401 tau/day, 56.027 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.088849   | 0.088849   | 0.088849   |   0.0 | 99.56
+Bond    | 5e-06      | 5e-06      | 5e-06      |   0.0 |  0.01
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.000111   | 0.000111   | 0.000111   |   0.0 |  0.12
+Output  | 7e-05      | 7e-05      | 7e-05      |   0.0 |  0.08
+Modify  | 0.000151   | 0.000151   | 0.000151   |   0.0 |  0.17
+Other   |            | 5.6e-05    |            |       |  0.06
+
+Nlocal:    8887 ave 8887 max 8887 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    4323 ave 4323 max 4323 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    1.3626e+06 ave 1.3626e+06 max 1.3626e+06 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 1362597
+Ave neighs/atom = 153.325
+Ave special neighs/atom = 0.00540115
+Neighbor list builds = 0
+Dangerous builds = 0
+unfix 3
+fix 3 polymer spring tether 10 30 15 15 22
+run 5
+Memory usage per processor = 4.0961 Mbytes
+v_ftotal 
+    42.71905 
+  -53.606639 
+  -72.690177 
+  -134.90737 
+    32.21399 
+   83.751793 
+Loop time of 0.089329 on 1 procs for 5 steps with 8887 atoms
+
+Performance: 96721.110 tau/day, 55.973 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.088912   | 0.088912   | 0.088912   |   nan | 99.53
+Bond    | 4e-06      | 4e-06      | 4e-06      |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.000112   | 0.000112   | 0.000112   |   0.0 |  0.13
+Output  | 7.8e-05    | 7.8e-05    | 7.8e-05    |   0.0 |  0.09
+Modify  | 0.000165   | 0.000165   | 0.000165   |   0.0 |  0.18
+Other   |            | 5.8e-05    |            |       |  0.06
+
+Nlocal:    8887 ave 8887 max 8887 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    4323 ave 4323 max 4323 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    1.3626e+06 ave 1.3626e+06 max 1.3626e+06 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 1362599
+Ave neighs/atom = 153.325
+Ave special neighs/atom = 0.00540115
+Neighbor list builds = 0
+Dangerous builds = 0
+unfix 3
+fix 3 polymer spring tether 10 30 15 15 22
+run 5
+Memory usage per processor = 4.0961 Mbytes
+v_ftotal 
+   85.822617 
+   163.02911 
+   117.72496 
+   55.886072 
+  -18.703831 
+  -16.184506 
+Loop time of 0.089472 on 1 procs for 5 steps with 8887 atoms
+
+Performance: 96566.524 tau/day, 55.883 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.089075   | 0.089075   | 0.089075   |   0.0 | 99.56
+Bond    | 3e-06      | 3e-06      | 3e-06      |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.000124   | 0.000124   | 0.000124   |   0.0 |  0.14
+Output  | 6.5e-05    | 6.5e-05    | 6.5e-05    |   0.0 |  0.07
+Modify  | 0.000149   | 0.000149   | 0.000149   |   0.0 |  0.17
+Other   |            | 5.6e-05    |            |       |  0.06
+
+Nlocal:    8887 ave 8887 max 8887 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    4323 ave 4323 max 4323 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    1.36261e+06 ave 1.36261e+06 max 1.36261e+06 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 1362607
+Ave neighs/atom = 153.326
+Ave special neighs/atom = 0.00540115
+Neighbor list builds = 0
+Dangerous builds = 0
+unfix 3
+fix 3 polymer spring tether 10 30 15 15 23
+run 5
+Memory usage per processor = 4.0961 Mbytes
+v_ftotal 
+  -43.969219 
+  -20.157964 
+  -80.062335 
+  -164.37815 
+  -93.156264 
+   1.5798627 
+Loop time of 0.08998 on 1 procs for 5 steps with 8887 atoms
+
+Performance: 96021.338 tau/day, 55.568 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.089591   | 0.089591   | 0.089591   |   0.0 | 99.57
+Bond    | 2e-06      | 2e-06      | 2e-06      |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.000111   | 0.000111   | 0.000111   |   0.0 |  0.12
+Output  | 7e-05      | 7e-05      | 7e-05      |   0.0 |  0.08
+Modify  | 0.000151   | 0.000151   | 0.000151   |   0.0 |  0.17
+Other   |            | 5.5e-05    |            |       |  0.06
+
+Nlocal:    8887 ave 8887 max 8887 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    4323 ave 4323 max 4323 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    1.36264e+06 ave 1.36264e+06 max 1.36264e+06 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 1362645
+Ave neighs/atom = 153.33
+Ave special neighs/atom = 0.00540115
+Neighbor list builds = 0
+Dangerous builds = 0
+unfix 3
+fix 3 polymer spring tether 10 30 15 15 23
+run 5
+Memory usage per processor = 4.0961 Mbytes
+v_ftotal 
+   53.446001 
+   45.905571 
+   76.842684 
+   48.805687 
+   26.161535 
+   25.265039 
+Loop time of 0.089187 on 1 procs for 5 steps with 8887 atoms
+
+Performance: 96875.105 tau/day, 56.062 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.088779   | 0.088779   | 0.088779   |   0.0 | 99.54
+Bond    | 2e-06      | 2e-06      | 2e-06      |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.000113   | 0.000113   | 0.000113   |   0.0 |  0.13
+Output  | 8.4e-05    | 8.4e-05    | 8.4e-05    |   0.0 |  0.09
+Modify  | 0.000152   | 0.000152   | 0.000152   |   0.0 |  0.17
+Other   |            | 5.7e-05    |            |       |  0.06
+
+Nlocal:    8887 ave 8887 max 8887 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    4323 ave 4323 max 4323 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    1.36266e+06 ave 1.36266e+06 max 1.36266e+06 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 1362664
+Ave neighs/atom = 153.332
+Ave special neighs/atom = 0.00540115
+Neighbor list builds = 0
+Dangerous builds = 0
+unfix 3
+fix 3 polymer spring tether 10 30 15 15 24
+run 5
+Memory usage per processor = 4.0961 Mbytes
+v_ftotal 
+  -6.4575335 
+   2.9029819 
+   31.842318 
+  -43.263727 
+  -85.479065 
+  -26.248373 
+Loop time of 0.089012 on 1 procs for 5 steps with 8887 atoms
+
+Performance: 97065.564 tau/day, 56.172 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.088621   | 0.088621   | 0.088621   |   0.0 | 99.56
+Bond    | 4e-06      | 4e-06      | 4e-06      |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.000111   | 0.000111   | 0.000111   |   nan |  0.12
+Output  | 7.2e-05    | 7.2e-05    | 7.2e-05    |   0.0 |  0.08
+Modify  | 0.000151   | 0.000151   | 0.000151   |   0.0 |  0.17
+Other   |            | 5.3e-05    |            |       |  0.06
+
+Nlocal:    8887 ave 8887 max 8887 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    4323 ave 4323 max 4323 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    1.36265e+06 ave 1.36265e+06 max 1.36265e+06 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 1362647
+Ave neighs/atom = 153.33
+Ave special neighs/atom = 0.00540115
+Neighbor list builds = 0
+Dangerous builds = 0
+unfix 3
+fix 3 polymer spring tether 10 30 15 15 24
+run 5
+Memory usage per processor = 4.0961 Mbytes
+v_ftotal 
+   67.844655 
+    90.80082 
+   133.97046 
+   66.705007 
+  -33.565031 
+  -32.280836 
+Loop time of 0.090033 on 1 procs for 5 steps with 8887 atoms
+
+Performance: 95964.813 tau/day, 55.535 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.089639   | 0.089639   | 0.089639   |   0.0 | 99.56
+Bond    | 2e-06      | 2e-06      | 2e-06      |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.000113   | 0.000113   | 0.000113   |   0.0 |  0.13
+Output  | 7.5e-05    | 7.5e-05    | 7.5e-05    |   0.0 |  0.08
+Modify  | 0.000148   | 0.000148   | 0.000148   |   0.0 |  0.16
+Other   |            | 5.6e-05    |            |       |  0.06
+
+Nlocal:    8887 ave 8887 max 8887 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    4323 ave 4323 max 4323 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    1.36266e+06 ave 1.36266e+06 max 1.36266e+06 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 1362656
+Ave neighs/atom = 153.331
+Ave special neighs/atom = 0.00540115
+Neighbor list builds = 0
+Dangerous builds = 0
+unfix 3
+fix 3 polymer spring tether 10 30 15 15 25
+run 5
+Memory usage per processor = 4.0961 Mbytes
+v_ftotal 
+  -44.651561 
+  -1.8780878 
+  -40.229455 
+   35.435221 
+  -47.760703 
+  -75.323176 
+Loop time of 0.08859 on 1 procs for 5 steps with 8887 atoms
+
+Performance: 97527.938 tau/day, 56.440 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.0882     | 0.0882     | 0.0882     |   0.0 | 99.56
+Bond    | 5e-06      | 5e-06      | 5e-06      |   0.0 |  0.01
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.000111   | 0.000111   | 0.000111   |   0.0 |  0.13
+Output  | 6.7e-05    | 6.7e-05    | 6.7e-05    |   0.0 |  0.08
+Modify  | 0.000149   | 0.000149   | 0.000149   |   0.0 |  0.17
+Other   |            | 5.8e-05    |            |       |  0.07
+
+Nlocal:    8887 ave 8887 max 8887 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    4324 ave 4324 max 4324 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    1.36267e+06 ave 1.36267e+06 max 1.36267e+06 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 1362673
+Ave neighs/atom = 153.333
+Ave special neighs/atom = 0.00540115
+Neighbor list builds = 0
+Dangerous builds = 0
+unfix 3
+fix 3 polymer spring tether 10 30 15 15 25
+run 5
+Memory usage per processor = 4.0961 Mbytes
+v_ftotal 
+  -66.899455 
+   22.517951 
+   82.193868 
+   50.823564 
+   45.275981 
+   27.524907 
+Loop time of 0.089381 on 1 procs for 5 steps with 8887 atoms
+
+Performance: 96664.839 tau/day, 55.940 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.088986   | 0.088986   | 0.088986   |   0.0 | 99.56
+Bond    | 3e-06      | 3e-06      | 3e-06      |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.00011    | 0.00011    | 0.00011    |   0.0 |  0.12
+Output  | 7.5e-05    | 7.5e-05    | 7.5e-05    |   0.0 |  0.08
+Modify  | 0.000148   | 0.000148   | 0.000148   |   0.0 |  0.17
+Other   |            | 5.9e-05    |            |       |  0.07
+
+Nlocal:    8887 ave 8887 max 8887 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    4325 ave 4325 max 4325 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    1.36267e+06 ave 1.36267e+06 max 1.36267e+06 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 1362670
+Ave neighs/atom = 153.333
+Ave special neighs/atom = 0.00540115
+Neighbor list builds = 0
+Dangerous builds = 0
+unfix 3
+fix 3 polymer spring tether 10 30 15 15 26
+run 5
+Memory usage per processor = 4.0961 Mbytes
+v_ftotal 
+    91.15729 
+   63.921909 
+   86.332326 
+    60.07843 
+   1.8288244 
+  -69.933977 
+Loop time of 0.088832 on 1 procs for 5 steps with 8887 atoms
+
+Performance: 97262.248 tau/day, 56.286 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.088442   | 0.088442   | 0.088442   |   0.0 | 99.56
+Bond    | 4e-06      | 4e-06      | 4e-06      |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.000111   | 0.000111   | 0.000111   |   0.0 |  0.12
+Output  | 6.8e-05    | 6.8e-05    | 6.8e-05    |   0.0 |  0.08
+Modify  | 0.000148   | 0.000148   | 0.000148   |   0.0 |  0.17
+Other   |            | 5.9e-05    |            |       |  0.07
+
+Nlocal:    8887 ave 8887 max 8887 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    4326 ave 4326 max 4326 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    1.36263e+06 ave 1.36263e+06 max 1.36263e+06 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 1362631
+Ave neighs/atom = 153.329
+Ave special neighs/atom = 0.00540115
+Neighbor list builds = 0
+Dangerous builds = 0
+unfix 3
+fix 3 polymer spring tether 10 30 15 15 26
+run 5
+Memory usage per processor = 4.0961 Mbytes
+v_ftotal 
+   -64.74097 
+  -49.934406 
+   14.833882 
+   41.765978 
+   -40.17424 
+   39.412952 
+Loop time of 0.090088 on 1 procs for 5 steps with 8887 atoms
+
+Performance: 95906.225 tau/day, 55.501 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.089695   | 0.089695   | 0.089695   |   0.0 | 99.56
+Bond    | 2e-06      | 2e-06      | 2e-06      |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.000113   | 0.000113   | 0.000113   |   0.0 |  0.13
+Output  | 7.4e-05    | 7.4e-05    | 7.4e-05    |   0.0 |  0.08
+Modify  | 0.000148   | 0.000148   | 0.000148   |   0.0 |  0.16
+Other   |            | 5.6e-05    |            |       |  0.06
+
+Nlocal:    8887 ave 8887 max 8887 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    4326 ave 4326 max 4326 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    1.36264e+06 ave 1.36264e+06 max 1.36264e+06 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 1362644
+Ave neighs/atom = 153.33
+Ave special neighs/atom = 0.00540115
+Neighbor list builds = 0
+Dangerous builds = 0
+unfix 3
+fix 3 polymer spring tether 10 30 15 15 27
+run 5
+Memory usage per processor = 4.0961 Mbytes
+v_ftotal 
+   57.960863 
+   52.596229 
+   99.972623 
+   89.316748 
+   110.09521 
+   56.570178 
+Loop time of 0.089055 on 1 procs for 5 steps with 8887 atoms
+
+Performance: 97018.696 tau/day, 56.145 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.08867    | 0.08867    | 0.08867    |   0.0 | 99.57
+Bond    | 5e-06      | 5e-06      | 5e-06      |   0.0 |  0.01
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.00011    | 0.00011    | 0.00011    |   0.0 |  0.12
+Output  | 6.3e-05    | 6.3e-05    | 6.3e-05    |   0.0 |  0.07
+Modify  | 0.00015    | 0.00015    | 0.00015    |   0.0 |  0.17
+Other   |            | 5.7e-05    |            |       |  0.06
+
+Nlocal:    8887 ave 8887 max 8887 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    4327 ave 4327 max 4327 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    1.36263e+06 ave 1.36263e+06 max 1.36263e+06 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 1362634
+Ave neighs/atom = 153.329
+Ave special neighs/atom = 0.00540115
+Neighbor list builds = 0
+Dangerous builds = 0
+unfix 3
+fix 3 polymer spring tether 10 30 15 15 27
+run 5
+Memory usage per processor = 4.0961 Mbytes
+v_ftotal 
+   5.3492698 
+   -62.72769 
+  -102.71021 
+   7.3689813 
+  -13.079497 
+  -41.099572 
+Loop time of 0.08957 on 1 procs for 5 steps with 8887 atoms
+
+Performance: 96460.869 tau/day, 55.822 timesteps/s
+99.9% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.08918    | 0.08918    | 0.08918    |   0.0 | 99.56
+Bond    | 5e-06      | 5e-06      | 5e-06      |   0.0 |  0.01
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.000108   | 0.000108   | 0.000108   |   0.0 |  0.12
+Output  | 6.9e-05    | 6.9e-05    | 6.9e-05    |   0.0 |  0.08
+Modify  | 0.000153   | 0.000153   | 0.000153   |   0.0 |  0.17
+Other   |            | 5.5e-05    |            |       |  0.06
+
+Nlocal:    8887 ave 8887 max 8887 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    4327 ave 4327 max 4327 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    1.36266e+06 ave 1.36266e+06 max 1.36266e+06 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 1362656
+Ave neighs/atom = 153.331
+Ave special neighs/atom = 0.00540115
+Neighbor list builds = 0
+Dangerous builds = 0
+unfix 3
+fix 3 polymer spring tether 10 30 15 15 28
+run 5
+Memory usage per processor = 4.0961 Mbytes
+v_ftotal 
+   -53.81513 
+   5.3979033 
+   13.444314 
+   51.585252 
+   46.142552 
+   62.123154 
+Loop time of 0.088905 on 1 procs for 5 steps with 8887 atoms
+
+Performance: 97182.386 tau/day, 56.240 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.08852    | 0.08852    | 0.08852    |   0.0 | 99.57
+Bond    | 2e-06      | 2e-06      | 2e-06      |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.000114   | 0.000114   | 0.000114   |   0.0 |  0.13
+Output  | 6.2e-05    | 6.2e-05    | 6.2e-05    |   0.0 |  0.07
+Modify  | 0.000153   | 0.000153   | 0.000153   |   0.0 |  0.17
+Other   |            | 5.4e-05    |            |       |  0.06
+
+Nlocal:    8887 ave 8887 max 8887 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    4327 ave 4327 max 4327 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    1.36267e+06 ave 1.36267e+06 max 1.36267e+06 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 1362672
+Ave neighs/atom = 153.333
+Ave special neighs/atom = 0.00540115
+Neighbor list builds = 0
+Dangerous builds = 0
+unfix 3
+fix 3 polymer spring tether 10 30 15 15 28
+run 5
+Memory usage per processor = 4.0961 Mbytes
+v_ftotal 
+   58.122966 
+   21.553676 
+   29.873124 
+  -36.222387 
+  -45.649451 
+  -30.235657 
+Loop time of 0.089105 on 1 procs for 5 steps with 8887 atoms
+
+Performance: 96964.256 tau/day, 56.114 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.088711   | 0.088711   | 0.088711   |   0.0 | 99.56
+Bond    | 3e-06      | 3e-06      | 3e-06      |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.00011    | 0.00011    | 0.00011    |   0.0 |  0.12
+Output  | 7.9e-05    | 7.9e-05    | 7.9e-05    |   0.0 |  0.09
+Modify  | 0.000147   | 0.000147   | 0.000147   |   0.0 |  0.16
+Other   |            | 5.5e-05    |            |       |  0.06
+
+Nlocal:    8887 ave 8887 max 8887 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    4326 ave 4326 max 4326 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    1.36265e+06 ave 1.36265e+06 max 1.36265e+06 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 1362651
+Ave neighs/atom = 153.331
+Ave special neighs/atom = 0.00540115
+Neighbor list builds = 0
+Dangerous builds = 0
+unfix 3
+fix 3 polymer spring tether 10 30 15 15 29
+run 5
+Memory usage per processor = 4.0961 Mbytes
+v_ftotal 
+  -61.004231 
+   36.901984 
+   8.6174853 
+   31.736101 
+   68.819645 
+   20.238856 
+Loop time of 0.089101 on 1 procs for 5 steps with 8887 atoms
+
+Performance: 96968.609 tau/day, 56.116 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.088699   | 0.088699   | 0.088699   |   0.0 | 99.55
+Bond    | 5e-06      | 5e-06      | 5e-06      |   0.0 |  0.01
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.000111   | 0.000111   | 0.000111   |   0.0 |  0.12
+Output  | 7.4e-05    | 7.4e-05    | 7.4e-05    |   0.0 |  0.08
+Modify  | 0.000153   | 0.000153   | 0.000153   |   0.0 |  0.17
+Other   |            | 5.9e-05    |            |       |  0.07
+
+Nlocal:    8887 ave 8887 max 8887 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    4325 ave 4325 max 4325 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    1.36264e+06 ave 1.36264e+06 max 1.36264e+06 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 1362638
+Ave neighs/atom = 153.329
+Ave special neighs/atom = 0.00540115
+Neighbor list builds = 0
+Dangerous builds = 0
+unfix 3
+fix 3 polymer spring tether 10 30 15 15 29
+run 5
+Memory usage per processor = 4.0961 Mbytes
+v_ftotal 
+    52.47813 
+   9.5193507 
+   26.987649 
+  -71.100021 
+  -120.59734 
+  -59.918353 
+Loop time of 0.088848 on 1 procs for 5 steps with 8887 atoms
+
+Performance: 97244.733 tau/day, 56.276 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.088457   | 0.088457   | 0.088457   |   0.0 | 99.56
+Bond    | 4e-06      | 4e-06      | 4e-06      |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.000111   | 0.000111   | 0.000111   |   nan |  0.12
+Output  | 7.3e-05    | 7.3e-05    | 7.3e-05    |   0.0 |  0.08
+Modify  | 0.000147   | 0.000147   | 0.000147   |   0.0 |  0.17
+Other   |            | 5.6e-05    |            |       |  0.06
+
+Nlocal:    8887 ave 8887 max 8887 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    4325 ave 4325 max 4325 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    1.3626e+06 ave 1.3626e+06 max 1.3626e+06 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 1362602
+Ave neighs/atom = 153.325
+Ave special neighs/atom = 0.00540115
+Neighbor list builds = 0
+Dangerous builds = 0
+unfix 3
+Total wall time: 0:12:40
