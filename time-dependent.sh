@@ -23,4 +23,4 @@
 # Mail user:
 #SBATCH --mail-user=vincentcaptain@berkeley.edu
 ## Command(s) to run:
-mpirun -np 4 lmp_serial -in in.ljwall
+mpirun -np 4 lmp_mpi -in in.ljwall
