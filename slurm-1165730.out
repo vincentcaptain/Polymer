@@ -1,0 +1,9 @@
+--------------------------------------------------------------------------
+mpirun was unable to launch the specified application as it could not find an executable:
+
+Executable: lmp_serial
+Node: n0028.savio2
+
+while attempting to start process rank 0.
+--------------------------------------------------------------------------
+4 total processes failed to start
