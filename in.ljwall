@@ -78,5 +78,5 @@ compute       com polymer com
 thermo_style custom v_ftotal c_com[1] c_com[2] c_com[3]
 
 thermo        1
-run           50000
+run           500000
 

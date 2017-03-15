@@ -2,6 +2,7 @@ from __future__ import division
 import numpy as np
 import scipy as sp
 import matplotlib.pyplot as plt
+import random
 # from mpi4py import MPI
 # me = MPI.COMM_WORLD.Get_size()
 from lammps import lammps, PyLammps
@@ -57,7 +58,7 @@ def data(i):
 	fz = lambda x0, y0, z0: 5*(z0-15)/r(x0, y0, z0)
 	polymer.fix(1, "polymer nve")
 	polymer.fix(2, "polymer langevin", t, t, 1.5, np.random.randint(2, high = 200000))
-	polymer.fix(3, "polymer spring tether", 10, 30, 15, 15, i/3)
+	polymer.fix(3, "polymer spring tether", 10, i/2, "NULL NULL", 0)
 	polymer.timestep(0.02)
 	polymer.compute("com polymer com")
 	polymer.variable("ftotal equal fcm(polymer,x)")
@@ -66,8 +67,8 @@ def data(i):
 	print(i)
 	polymer.run(5000)
 	print(i)
-	l = polymer.runs[0][0][0][1000:] + [i/3]
-	u = [np.mean(l), i/3]
+	l = polymer.runs[0][0][0][1000:] + [i/2]
+	u = [np.mean(l), i/2]
 	l = polymer.extract_global("c_com", 1)
 	print(i)
 	np.savetxt("trial%dmean.txt" % i, u)
@@ -78,6 +79,31 @@ data(15)
 # num_cores = multiprocessing.cpu_count()
 
 # results = Parallel(n_jobs = num_cores)(delayed(data)(i) for i in range(1, 90))
+# Initialize random positions of particles
+def position_init(length = 10):
+	x1 = random.uniform(0, 28)
+	y1 = random.uniform(0, 30)
+	z1 = random.uniform(0, 30)
+	i = 1
+	Lx, Ly, Lz = [x1], [y1], [z1]
+	while i < length:
+		xi = random.uniform(Lx[i - 1] - 1, Lx[i - 1] + 1)
+		if xi in Lx:
+			while xi in Lx:
+				xi = random.uniform(Lx[i - 1] - 1, Lx[i - 1] + 1)
+		yi = random.uniform(Ly[i - 1] - 1, Ly[i - 1] + 1)
+		if yi in Ly:
+			while yi in Ly:
+				yi = random.uniform(Ly[i - 1] - 1, Ly[i - 1] + 1)
+		zi = random.uniform(Lz[i - 1] - 1, Lz[i - 1] + 1)
+		if zi in Lz:
+			while xi in Lx:
+				xi = random.uniform(Lx[i - 1] - 1, Lx[i - 1] + 1)
+		r = np.sqrt((Lx[i - 1]-xi)**2 + (Ly[i - 1]-yi)**2 + (Lz[i - 1]-zi)**2)
+		xi = Lx[i - 1] + (Lx[i - 1] - xi)/r
+		yi = Ly[i - 1] + (Ly[i - 1] - yi)/r
+		zi = Lz[i - 1] + (Lz[i - 1] - zi)/r
+	return zip(Lx, Ly, Lz)
 
 # Eliminate repeated points and convert them to normal coordinate
 def position_data_modify(x, y, z):
