@@ -59,15 +59,15 @@ def data(i):
 	polymer.fix(1, "polymer nve")
 	polymer.fix(2, "polymer langevin", t, t, 1.5, np.random.randint(2, high = 200000))
 	polymer.fix(3, "polymer spring tether", 10, i/2, "NULL NULL", 0)
-	polymer.timestep(0.02)
+	polymer.timestep(0.01)
 	polymer.compute("com polymer com")
 	polymer.variable("ftotal equal fcm(polymer,x)")
 	polymer.thermo_style("custom v_ftotal")
 	polymer.thermo(1)
 	print(i)
-	polymer.run(5000)
+	polymer.run(500)
 	print(i)
-	l = polymer.runs[0][0][0][1000:] + [i/2]
+	l = polymer.runs[0][0][0][100:] + [i/2]
 	u = [np.mean(l), i/2]
 	l = polymer.extract_global("c_com", 1)
 	print(i)
@@ -75,7 +75,7 @@ def data(i):
 	np.savetxt("trial%dall.txt" % i, l)
 	return u
 
-data(15)
+
 # num_cores = multiprocessing.cpu_count()
 
 # results = Parallel(n_jobs = num_cores)(delayed(data)(i) for i in range(1, 90))

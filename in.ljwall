@@ -60,7 +60,6 @@ variable      fz equal 5*(z[1]-15)/v_r
 variable      ftotal equal fcm(polymer,x)
 fix           1 polymer nve
 fix           2 polymer langevin $t $t 1 1209
-fix           3 polymer spring tether 10 15 NULL NULL 0
 #fix           3 polymer recenter 5 15 15
 #fix           3 first addforce v_fx v_fy v_fz region hemiin
 #fix           4 first addforce 1 0 0 region void
@@ -78,5 +77,5 @@ compute       com polymer com
 thermo_style custom v_ftotal c_com[1] c_com[2] c_com[3]
 
 thermo        1
-run           500000
+#run           500000
 
