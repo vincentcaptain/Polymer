@@ -6,7 +6,7 @@ import random
 # from mpi4py import MPI
 # me = MPI.COMM_WORLD.Get_size()
 from lammps import lammps, PyLammps
-from joblib import Parallel, delayed
+#from joblib import Parallel, delayed
 import multiprocessing
 # l = []
 # i = 90
