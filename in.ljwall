@@ -66,7 +66,7 @@ fix           2 polymer langevin $t $t 1 1209
 #fix           5 polymer addforce 3 0 0 region box
 #fix           5 first addforce -5 0 0 region hemiout
 timestep      0.01
-#dump          walll polymer image 10 dump.*.jpg type type
+dump          walll polymer image 100 dump.*.jpg type type
 # equilibration run
 #thermo        1000
 #run           5000
@@ -75,7 +75,7 @@ timestep      0.01
 reset_timestep 0
 compute       com polymer com
 thermo_style custom v_ftotal c_com[1] c_com[2] c_com[3]
-
+variable      c equal c_com[1]
 thermo        1
 #run           500000
 
