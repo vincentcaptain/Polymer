@@ -100,10 +100,10 @@ def data(i):
 	polymer.thermo_style("custom v_ftotal v_c")
 	polymer.thermo(1)
 	print(i)
-	polymer.run(500)
+	polymer.run(500000)
 	print(i)
-	l = polymer.runs[0][0][1][100:] + [i/2]
-	u = [np.mean(polymer.runs[0][0][0][100:]), i/2]
+	l = polymer.runs[0][0][1][20000:] + [i/2]
+	u = [np.mean(polymer.runs[0][0][0][20000:]), i/2]
 	print(i)
 	np.savetxt("trial%dmean.txt" % i, u)
 	np.savetxt("trial%dall.txt" % i, l)
