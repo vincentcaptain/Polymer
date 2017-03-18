@@ -110,9 +110,9 @@ def data(i):
 	return u
 
 
-num_cores = multiprocessing.cpu_count()
+#num_cores = multiprocessing.cpu_count()
 
-results = Parallel(n_jobs = num_cores)(delayed(data)(i) for i in range(1, 60))
+#results = Parallel(n_jobs = num_cores)(delayed(data)(i) for i in range(1, 60))
 # Initialize random positions of particles
 def position_init(length = 10):
 	x1 = random.uniform(0, 28)
