@@ -92,19 +92,16 @@ def data(i):
 	fz = lambda x0, y0, z0: 5*(z0-15)/r(x0, y0, z0)
 	polymer.fix(1, "polymer nve")
 	polymer.fix(2, "polymer langevin", t, t, 1.5, np.random.randint(2, high = 200000))
-	polymer.fix(3, "polymer spring tether", 10, i/2, "NULL NULL", 0)
+	polymer.fix(3, "polymer spring tether", 10, i, "NULL NULL", 0)
 	polymer.timestep(0.01)
 	polymer.compute("com polymer com")
 	polymer.variable("ftotal equal fcm(polymer,x)")
 	polymer.variable("c equal c_com[1]")
 	polymer.thermo_style("custom v_ftotal v_c")
 	polymer.thermo(1)
-	print(i)
 	polymer.run(500000)
-	print(i)
 	l = polymer.runs[0][0][1][20000:] + [i]
 	u = [np.mean(polymer.runs[0][0][0][20000:]), i]
-	print(i)
 	np.savetxt("trial%dmean.txt" % i, u)
 	np.savetxt("trial%dall.txt" % i, l)
 	return u
