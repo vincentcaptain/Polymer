@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 LAMMPS (17 Nov 2016)
 units lj
 dimension 3
@@ -2442,3 +2443,5 @@ v_ftotal v_c
   -23.183753    4.5644365 
   -22.595577    4.5618148 
    77.54084
+=======
+>>>>>>> ee75bf7b9e04da7ab8710df96aae44ef651edcf3

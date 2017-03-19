@@ -12,7 +12,7 @@
 #SBATCH --nodes=1
 #
 # Processors per task:
-#SBATCH --cpus-per-task=1
+#SBATCH --cpus-per-task=20
 #
 # Wall clock limit:
 #SBATCH --time=20:00:00
@@ -23,4 +23,4 @@
 # Mail user:
 #SBATCH --mail-user=vincentcaptain@berkeley.edu
 ## Command(s) to run:
-mpirun -np 4 lmp_mpi -in in.ljwall
+python2 ljwall.py
