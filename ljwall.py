@@ -102,8 +102,8 @@ def data(i):
 	print(i)
 	polymer.run(500000)
 	print(i)
-	l = polymer.runs[0][0][1][20000:] + [i/2]
-	u = [np.mean(polymer.runs[0][0][0][20000:]), i/2]
+	l = polymer.runs[0][0][1][20000:] + [i]
+	u = [np.mean(polymer.runs[0][0][0][20000:]), i]
 	print(i)
 	np.savetxt("trial%dmean.txt" % i, u)
 	np.savetxt("trial%dall.txt" % i, l)
@@ -111,8 +111,8 @@ def data(i):
 
 
 num_cores = multiprocessing.cpu_count()
-
-results = Parallel(n_jobs = num_cores)(delayed(data)(i) for i in range(1, 60))
+l = list(range(1, 20)) + [i/3 for i in range(60, 96)] + [2*i for i in range(17, 30)]
+results = Parallel(n_jobs = num_cores - 4)(delayed(data)(i) for i in range(1, 60))
 # Initialize random positions of particles
 def position_init(length = 10):
 	x1 = random.uniform(0, 28)
