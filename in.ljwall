@@ -9,7 +9,7 @@ variable      z equal 30
 # temperature t = 1
 variable      t equal 1
 #variable      rho equal 0.7
-#neigh_modify  delay 0 check yes one 200000 page 2000000
+neigh_modify  delay 0 check yes one 200000 page 2000000
 
 
 # System setup
