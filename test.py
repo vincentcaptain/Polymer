@@ -19,10 +19,11 @@ p.file("in.ljwall")
 #        p.command("run 500000")
 #        p.command("unfix 3")
 #        i += 1
-i = 24
-while i < 35:
-        p.command("fix 3 polymer spring tether 1 %d NULL NULL 0" % i)
-        p.command("run 5000000")
-        p.command("unfix 3")
-        i += 0.5
+# i = 24
+# while i < 35:
+#         p.command("fix 3 polymer spring tether 1 %d NULL NULL 0" % i)
+#         p.command("run 5000000")
+#         p.command("unfix 3")
+#         i += 0.5
+p.command("run 10000")
 sys.exit()
