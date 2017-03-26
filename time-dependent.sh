@@ -1,6 +1,6 @@
 #!/bin/bash
 # Job name:
-#SBATCH --job-name=ljwall_24_34.5
+#SBATCH --job-name=ljwall_35
 #
 # Account:
 #SBATCH --account=co_noneq
@@ -12,7 +12,7 @@
 #SBATCH --nodes=1
 #
 # Processors per task:
-#SBATCH --cpus-per-task=20
+#SBATCH --cpus-per-task=24
 #
 # Wall clock limit:
 #SBATCH --time=40:00:00
@@ -23,4 +23,4 @@
 # Mail user:
 #SBATCH --mail-user=vincentcaptain@berkeley.edu
 ## Command(s) to run:
-mpirun -np 20 python2 test.py
+mpirun -np 24 python2 test.py
