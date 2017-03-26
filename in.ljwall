@@ -75,5 +75,5 @@ compute       com polymer com
 thermo_style custom c_com[1] c_com[2] c_com[3]
 variable      c equal c_com[1]
 thermo        1
-#run           2500
+run           20000
 
