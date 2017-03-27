@@ -19,7 +19,7 @@ dimension     3
 atom_style    bond
 bond_style    harmonic
 pair_style    lj/cut 3
-processors    2 3 4
+#processors    2 1 6
 read_data     data.polymer
 
 # LJ pairs
@@ -57,7 +57,7 @@ region        hemiin intersect 2 boxin spherein
 #variable      ftotal equal fcm(polymer,x)
 fix           1 polymer nve
 fix           2 polymer langevin $t $t 1 1209
-#fix 3 polymer spring tether 5 3 NULL NULL 0
+
 #fix           3 polymer recenter 5 15 15
 #fix           3 first addforce v_fx v_fy v_fz region hemiin
 #fix           4 first addforce 1 0 0 region void
@@ -65,15 +65,16 @@ fix           2 polymer langevin $t $t 1 1209
 #fix           5 first addforce -5 0 0 region hemiout
 timestep      0.01
 # equilibration run
-#thermo        1000
-#run           5000
+thermo        1000
+run           20000
 
-
+fix 3 polymer spring tether 5 32 NULL NULL 0
 reset_timestep 0
 compute       com polymer com
-#compute       g polymer gyration
-thermo_style custom c_com[1] c_com[2] c_com[3]
+compute       g polymer gyration
+thermo_style custom c_g c_com[1] c_com[2] c_com[3]
 variable      c equal c_com[1]
 thermo        1
-run           20000
+dump          polymer polymer xyz 100 polymer_position
+
 
