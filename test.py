@@ -8,21 +8,28 @@ print "Proc %d out of %d procs" % (comm.Get_rank(),comm.Get_size())
 p = lammps()
 p.file("in.ljwall")
 i = 0
-while i < 24:
-	p.command("fix 3 polymer spring tether 3 %d NULL NULL 0" % i)
-	p.command("run 500000")
-	p.command("unfix 3")
-	i += 1
-# i = 35
-# while i < 60:
-# 	p.command("fix 3 polymer spring tether 3 %d NULL NULL 0" % i)
-#         p.command("run 500000")
-#         p.command("unfix 3")
-#         i += 1
-# i = 24
-# while i < 35:
-#         p.command("fix 3 polymer spring tether 1 %d NULL NULL 0" % i)
-#         p.command("run 5000000")
-#         p.command("unfix 3")
-#         i += 0.5
+p.command("fix 3 polymer spring tether 1 33 NULL NULL 0")
+n = p.extract_compute("com",0, 1)[0]
+while n < 33:
+	p.command("run 5000000")
+	n = p.extract_compute("com", 0, 1)[0]
+	i += 5000000
+print(i)
+
+#while i < 24:
+#	p.command("fix 3 polymer spring tether 3 %d NULL NULL 0" % i)
+#	p.command("run 500000")
+#	p.command("unfix 3")
+#	i += 1
+#while i < 35:
+#        p.command("fix 3 polymer spring tether 1 %d NULL NULL 0" % i)
+#        p.command("run 5000000")
+#        p.command("unfix 3")
+#	i += 0.5
+#while i < 60:
+#	p.command("fix 3 polymer spring tether 3 %d NULL NULL 0" % i)
+#        p.command("run 500000")
+#        p.command("unfix 3")
+#        i += 1
+
 sys.exit()
