@@ -10,12 +10,20 @@ p.file("in.ljwall")
 i = 0
 p.command("fix 3 polymer spring tether 1 33 NULL NULL 0")
 n = p.extract_compute("com",0, 1)[0]
-while n < 33:
-	p.command("run 5000000")
+while n < 32:
+	p.command("run 50000")
 	n = p.extract_compute("com", 0, 1)[0]
-	i += 5000000
-print(i)
+	i += 50000
+j = 0
 
+#p.command("unfix 3")
+#p.command("run 20000")
+#p.command("fix 3 polymer spring tether 1 27 NULL NULL 0")
+#while n > 28:
+#        p.command("run 50000")
+#        n = p.extract_compute("com", 0, 1)[0]
+#        j += 50000
+print(i, j)
 #while i < 24:
 #	p.command("fix 3 polymer spring tether 3 %d NULL NULL 0" % i)
 #	p.command("run 500000")
@@ -31,5 +39,4 @@ print(i)
 #        p.command("run 500000")
 #        p.command("unfix 3")
 #        i += 1
-
 sys.exit()
