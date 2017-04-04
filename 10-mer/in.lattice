@@ -1,0 +1,31 @@
+# LAMMPS files to generate positions of wall particles
+variable      x equal 60
+variable      y equal 30
+variable      z equal 30
+# temperature t = 1
+variable      t equal 1
+variable      rho equal 4
+
+units         lj
+dimension     3
+atom_style    atomic
+# LJ pairs
+pair_style    lj/cut 3
+# two 3D LJ lattices at the middle of the box
+lattice       fcc ${rho} spacing 1 1 1
+region        simbox block 0 $x 0 $y 0 $z
+create_box    1 simbox
+region        void cylinder x 15 15 2 29 31
+region        wall block 29 31 0 30 0 30
+create_atoms  1 region wall
+delete_atoms  region void
+pair_coeff    * * 2.5 1 3
+#velocity      final create $t 97287
+mass          * 1
+
+dump          wall all custom 100 dump.wall x y z
+dump          walll all image 100 dump.*.jpg type type
+# equilibration run
+
+thermo          10
+run	            50
