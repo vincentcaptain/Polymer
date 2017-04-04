@@ -48,7 +48,7 @@ region        box block 0 $x 0 $y 0 $z
 region        spherein sphere 29 15 15 2
 region        boxin block 27 29 13 17 13 17
 region        hemiin intersect 2 boxin spherein
-region        print block 29 31 11 19 11 19
+region        print block 29 31 12 18 12 18
 group         print region print
 #region        sphereout sphere 31 15 15 2
 #region        boxout block 31 33 13 17 13 17
@@ -79,5 +79,5 @@ variable      c equal c_com[1]
 group         p union print polymer
 run 10000
 thermo        10
-#dump          polymer p xyz 100 with_wall.xyz
+dump          polymer p xyz 100 diffuse.xyz
 
