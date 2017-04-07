@@ -1,6 +1,6 @@
 #!/bin/bash
 # Job name:
-#SBATCH --job-name=ljwall_diffuse
+#SBATCH --job-name=ljwall_right_left
 #
 # Account:
 #SBATCH --account=co_noneq
