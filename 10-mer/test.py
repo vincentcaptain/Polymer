@@ -7,7 +7,7 @@ comm = MPI.COMM_WORLD
 print "Proc %d out of %d procs" % (comm.Get_rank(),comm.Get_size())
 p = lammps()
 p.file("in.ljwall")
-i = 27
+i = 23
 #p.command("fix 3 polymer spring tether 1 33 NULL NULL 0")
 #n = p.extract_compute("com",0, 1)[0]
 #while n < 32:
@@ -29,11 +29,11 @@ i = 27
 #	p.command("run 500000")
 #	p.command("unfix 3")
 #	i += 1
-while i < 33:
-        p.command("fix 3 polymer spring tether 1 %d NULL NULL 0" % i)
+while i < 37:
+        p.command("fix 3 polymer spring tether 2 %d NULL NULL 0" % i)
         p.command("run 15000000")
         p.command("unfix 3")
-	i += 0.5
+	i += 1
 #while i < 60:
 #	p.command("fix 3 polymer spring tether 3 %d NULL NULL 0" % i)
 #        p.command("run 500000")
