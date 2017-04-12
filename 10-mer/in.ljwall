@@ -78,5 +78,5 @@ thermo_style custom c_g c_com[1] c_com[2] c_com[3]
 variable      c equal c_com[1]
 group         p union print polymer
 #run 10000
-#thermo        10
+thermo        10
 

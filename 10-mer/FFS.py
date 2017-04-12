@@ -118,6 +118,8 @@ pol.command("run 0")
 Q0 = FFS_init(x_init, v_init, start, monomer, steps)
 Q1 = FFS_cont(Q0[0], Q0[1], Q0[2], start, sampling, monomer, steps)
 np.savetxt("FFS_prob_and_com.txt", np.r_[sampling, Q1])
+#Q1 = FFS_cont(Q0[0], Q0[1], Q0[2], sampling, monomer, steps)
+#np.savetxt("FFS_prob_and_com.txt", np.r_[sampling, Q1])
 
 
 
