@@ -51,7 +51,7 @@ def FFS_init(x, v, target, monomers = 10, steps = 50):
 	return init_x, init_v, ptotal
 
 
-def FFS_cont(init_x, init_v, p_init, target_series, monomers = 10, steps = 50):
+def FFS_cont(init_x, init_v, p_init, pos_init, target_series, monomers = 10, steps = 50):
 	p_collection = []
 	for item in target_series:
 		Pass = 0
@@ -71,7 +71,7 @@ def FFS_cont(init_x, init_v, p_init, target_series, monomers = 10, steps = 50):
 				v_original[:3*monomers] = init_v[r]
 				pol.scatter_atoms("x", 1, 3, x_original)
 				pol.scatter_atoms("v", 1, 3, v_original)
-			if com_current < item - 1:
+			if com_current < pos_init:
 				fail += 1
 				r = random.randint(0, len(init_x) - 1)
 				x_original[:3*monomers] = init_x[r]
@@ -116,7 +116,7 @@ while len(x_init) < 50:
 pol.command("unfix 3")
 pol.command("run 0")
 Q0 = FFS_init(x_init, v_init, start, monomer, steps)
-Q1 = FFS_cont(Q0[0], Q0[1], Q0[2], sampling, monomer, steps)
+Q1 = FFS_cont(Q0[0], Q0[1], Q0[2], start, sampling, monomer, steps)
 np.savetxt("FFS_prob_and_com.txt", np.r_[sampling, Q1])
 
 
