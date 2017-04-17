@@ -23,6 +23,7 @@ def FFS_init(x, v, target, monomers = 10, steps = 50):
 	init_x = []
 	Pass = 0
 	fail = 0
+	time = 0
 	while Pass < steps:
 		# Gather all atom position
 		x_current = pol.gather_atoms("x", 1, 3)
@@ -37,7 +38,6 @@ def FFS_init(x, v, target, monomers = 10, steps = 50):
 			v_current[:3*monomers] = v[r]
 			pol.scatter_atoms("x", 1, 3, x_current)
 			pol.scatter_atoms("v", 1, 3, v_current)
-			print(Pass)
 		if com_current < target - 1:
 			fail += 1
 			r = random.randint(0, len(x) - 1)
@@ -48,8 +48,11 @@ def FFS_init(x, v, target, monomers = 10, steps = 50):
 		if Pass >= steps:
 			break
 		pol.command("run 1 pre no post no")
+		time += 0.01
+	print(time)
 	ptotal = Pass/(Pass+fail)
-	return init_x, init_v, ptotal
+	flux = Pass/time
+	return init_x, init_v, ptotal, time
 
 
 def FFS_cont(init_x, init_v, p_init, pos_init, target_series, monomers = 10, steps = 50):
@@ -87,7 +90,6 @@ def FFS_cont(init_x, init_v, p_init, pos_init, target_series, monomers = 10, ste
 		p_collection.append(Pass/(Pass+fail))
 		init_x = cont_x
 		init_v = cont_v
-		print(item)
 	return p_init, p_collection
 
 
@@ -103,7 +105,7 @@ pol.file("in.ljwall")
 length = int((end - start)/interval)
 sampling = arange(start, end, 0.1)
 # Initialize
-pol.command("fix 3 polymer spring tether 1 %s NULL NULL 0" % start)
+pol.command("fix 3 polymer spring tether 1 26 NULL NULL 0")
 pol.command("run 5000 pre no post no")
 ptotal = 1
 x_init = []
@@ -115,20 +117,21 @@ while len(x_init) < size:
 	x_original = pol.gather_atoms("x", 1, 3)
 	v_original = pol.gather_atoms("v", 1, 3)
 	com_current = pol.extract_compute("com", 0, 1)
-	if com_current[0] > 25.5:
+	if com_current[0] > 26:
 		x_init.append(x_original[:3*monomer])
 		v_init.append(v_original[:3*monomer])
 		com_y.append(com_current[1])
 		com_z.append(com_current[2])
+	print(len(x_init))
 
 
 pol.command("unfix 3")
 pol.command("run 0")
 Q0 = FFS_init(x_init, v_init, start, monomer, size)
-Q1 = FFS_cont(Q0[0], Q0[1], Q0[2], start, sampling, monomer, size)
-np.savetxt("FFS_prob_and_com.txt", np.r_[sampling, Q1])
+#Q1 = FFS_cont(Q0[0], Q0[1], Q0[2], start, sampling, monomer, size)
+#np.savetxt("FFS_prob_and_com.txt", Q1)
 #Q1 = FFS_cont(Q0[0], Q0[1], Q0[2], sampling, monomer, steps)
 #np.savetxt("FFS_prob_and_com.txt", np.r_[sampling, Q1])
-
+#sys.exit()
 
 
