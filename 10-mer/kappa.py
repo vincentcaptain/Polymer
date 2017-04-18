@@ -47,8 +47,7 @@ pol.command("unfix 3")
 def kappa(left, right, left_end, right_end, x, v, target, monomers):
 	left_total, right_total, left_recross, right_recross = 0, 0, 0, 0
 	com_current = 0
-	total_recross = []
-	total_trial = []
+	k = []
 	while left_recross < target or right_recross < target:
 		direction = push(left, right)
 		if direction == "L":
@@ -58,17 +57,14 @@ def kappa(left, right, left_end, right_end, x, v, target, monomers):
 			else:
 				right_total += 1
 				right_recross += 1
-				total_recross.append(left_recross+right_recross)
-				total_trial.append(right_total+left_total)
 		else:
 			pol.command("run 3000")
 			if check_left(left_end, right_end):
 				left_total += 1
 				left_recross += 1
-				total_recross.append(left_recross+right_recross)
-				total_trial.append(right_total+left_total)
 			else:
 				right_total += 1
+		k.append(1-(left_recross+right_recross)/(left_total+right_total))
 		r = random.randint(0, len(x) - 1)
 		x_current = pol.gather_atoms("x", 1, 3)
 		v_current = pol.gather_atoms("v", 1, 3)
@@ -77,7 +73,7 @@ def kappa(left, right, left_end, right_end, x, v, target, monomers):
 		pol.scatter_atoms("x", 1, 3, x_current)
 		pol.scatter_atoms("v", 1, 3, v_current)
 		print(left_recross, right_recross)
-	return left_recross, right_recross, left_total, right_total, total_recross, total_trial
+	return k
 
 def check_left(left, right):
 	"""
@@ -107,7 +103,5 @@ def push(left, right):
 	else:
 		return "R"
 
-result = kappa(29.5, 30.5, 27.5, 32.5, x_init, v_init, size, monomer)
-time_series = zip(result[4], result[5])
-np.savetxt("kappa.txt", result[0:4])
-np.savetxt("kappa_time_series.txt", time_series)
+result = kappa(start, end, 27.5, 32.5, x_init, v_init, size, monomer)
+np.savetxt("kappa.txt", result)
