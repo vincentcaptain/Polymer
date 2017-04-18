@@ -38,7 +38,7 @@ def FFS_init(x, v, target, monomers = 10, steps = 50):
 			v_current[:3*monomers] = v[r]
 			pol.scatter_atoms("x", 1, 3, x_current)
 			pol.scatter_atoms("v", 1, 3, v_current)
-		if com_current < target - 1:
+		if com_current < target - 2:
 			fail += 1
 			r = random.randint(0, len(x) - 1)
 			x_current[:3*monomers] = x[r]
@@ -49,7 +49,7 @@ def FFS_init(x, v, target, monomers = 10, steps = 50):
 			break
 		pol.command("run 1 pre no post no")
 		time += 0.01
-	print(time)
+		print(time, Pass)
 	ptotal = Pass/(Pass+fail)
 	flux = Pass/time
 	return init_x, init_v, ptotal, time
@@ -92,42 +92,67 @@ def FFS_cont(init_x, init_v, p_init, pos_init, target_series, monomers = 10, ste
 		init_v = cont_v
 	return p_init, p_collection
 
-
-start = 27
-end = 33
-interval = 0.1
-monomer = 10
-steps = 50
-size = 900
-pol = lammps(cmdargs = ["-sc", "none"])
-pol.file("in.ljwall")
-# sampling range
-length = int((end - start)/interval)
-sampling = arange(start, end, 0.1)
-# Initialize
-pol.command("fix 3 polymer spring tether 1 26 NULL NULL 0")
-pol.command("run 5000 pre no post no")
-ptotal = 1
-x_init = []
-v_init = []
-com_y = []
-com_z = []
-while len(x_init) < size:
-	pol.command("run 100 pre no post no")
-	x_original = pol.gather_atoms("x", 1, 3)
-	v_original = pol.gather_atoms("v", 1, 3)
-	com_current = pol.extract_compute("com", 0, 1)
-	if com_current[0] > 26:
-		x_init.append(x_original[:3*monomer])
-		v_init.append(v_original[:3*monomer])
-		com_y.append(com_current[1])
-		com_z.append(com_current[2])
-	print(len(x_init))
+def flux(pos, target):
+	p = lammps(cmdargs = ["-sc", "none"])
+	p.file("in.ljwall")
+	p.command("fix 3 polymer spring tether 1 %d NULL NULL 0" % pos)
+	p.command("run 5000")
+	p.command("unfix 3")
+	com = p.extract_compute("com", 0, 1)[0]
+	if com > pos:
+		cross = 1
+		left = False
+	else:
+		cross = 0
+		left = True
+	t = 0
+	while cross < target:
+		p.command("run 50")
+		com = p.extract_compute("com", 0, 1)[0]
+		t += 0.5
+		if (com > pos and left) or (com < pos and not left):
+			cross += 1
+			left = not left
+		print(cross, com[1])
+	return cross/time
 
 
-pol.command("unfix 3")
-pol.command("run 0")
-Q0 = FFS_init(x_init, v_init, start, monomer, size)
+
+# start = 27
+# end = 33
+# interval = 0.1
+# monomer = 10
+# steps = 50
+# size = 900
+# pol = lammps(cmdargs = ["-sc", "none"])
+# pol.file("in.ljwall")
+# # sampling range
+# length = int((end - start)/interval)
+# sampling = arange(start, end, 0.1)
+# # Initialize
+# pol.command("fix 3 polymer spring tether 1 26 NULL NULL 0")
+# pol.command("run 5000 pre no post no")
+# ptotal = 1
+# x_init = []
+# v_init = []
+# com_y = []
+# com_z = []
+# while len(x_init) < size:
+# 	pol.command("run 100 pre no post no")
+# 	x_original = pol.gather_atoms("x", 1, 3)
+# 	v_original = pol.gather_atoms("v", 1, 3)
+# 	com_current = pol.extract_compute("com", 0, 1)
+# 	if com_current[0] > 26:
+# 		x_init.append(x_original[:3*monomer])
+# 		v_init.append(v_original[:3*monomer])
+# 		com_y.append(com_current[1])
+# 		com_z.append(com_current[2])
+# 	print(len(x_init))
+
+
+# pol.command("unfix 3")
+# pol.command("run 0")
+# Q0 = FFS_init(x_init, v_init, start, monomer, size)
 #Q1 = FFS_cont(Q0[0], Q0[1], Q0[2], start, sampling, monomer, size)
 #np.savetxt("FFS_prob_and_com.txt", Q1)
 #Q1 = FFS_cont(Q0[0], Q0[1], Q0[2], sampling, monomer, steps)
