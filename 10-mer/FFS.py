@@ -113,10 +113,11 @@ def flux(pos, target):
 		if (com > pos and left) or (com < pos and not left):
 			cross += 1
 			left = not left
-		print(cross, com[1])
 	return cross/time
 
-
+a = [24, 24.5, 25, 25.5, 26, 26.5, 27]
+b = [flux(i, 200) for i in a]
+np.savetxt("flux.txt", [a, b])
 
 # start = 27
 # end = 33
@@ -148,7 +149,6 @@ def flux(pos, target):
 # 		com_y.append(com_current[1])
 # 		com_z.append(com_current[2])
 # 	print(len(x_init))
-
 
 # pol.command("unfix 3")
 # pol.command("run 0")
