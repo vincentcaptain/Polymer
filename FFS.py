@@ -6,6 +6,7 @@ from mpi4py import MPI
 import random
 import sys
 
+
 def main(argv):
 	if len(argv) != 0 and len(argv) != 5:
 		print "input should only include starting point, end point, interval, monomer number and sampling steps"

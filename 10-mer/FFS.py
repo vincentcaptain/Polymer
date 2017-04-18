@@ -6,6 +6,8 @@ from mpi4py import MPI
 from pylab import *
 import random
 import sys
+from joblib import Parallel, delayed
+import multiprocessing
 
 # def main(argv):
 # 	if len(argv) != 0 and len(argv) != 5:
@@ -115,9 +117,11 @@ def flux(pos, target):
 			left = not left
 	return cross/time
 
+
+num_cores = multiprocessing.cpu_count()
 a = [24, 24.5, 25, 25.5, 26, 26.5, 27]
-b = [flux(i, 200) for i in a]
-np.savetxt("flux.txt", [a, b])
+f = Parallel(n_jobs = num_cores)(delayed(flux)(i, 200) for i in a)
+np.savetxt("flux.txt", b)
 
 # start = 27
 # end = 33

@@ -8,8 +8,8 @@ import random
 import sys
 
 
-start = 29.5
-end = 30.5
+start = 29.99
+end = 30.01
 interval = 0.1
 monomer = 10
 steps = 50
@@ -73,7 +73,7 @@ def kappa(left, right, left_end, right_end, x, v, target, monomers):
 		x_current = pol.gather_atoms("x", 1, 3)
 		v_current = pol.gather_atoms("v", 1, 3)
 		x_current[:3*monomers] = x[r]
-		v_current[:3*monomers] = list(np.zeros(3*monomers))
+		v_current[:3*monomers] = v[r]
 		pol.scatter_atoms("x", 1, 3, x_current)
 		pol.scatter_atoms("v", 1, 3, v_current)
 		print(left_recross, right_recross)
@@ -100,7 +100,7 @@ def push(left, right):
 	"""
 	com = pol.extract_compute("com", 0, 1)[0]
 	while left <= com <= right:
-		pol.command("run 10")
+		pol.command("run 1")
 		com = pol.extract_compute("com", 0, 1)[0]
 	if com < left:
 		return "L"
