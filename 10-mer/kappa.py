@@ -108,4 +108,6 @@ def push(left, right):
 		return "R"
 
 result = kappa(29.5, 30.5, 27.5, 32.5, x_init, v_init, size, monomer)
-np.savetxt("kappa.txt", result)
+time_series = zip(result[4], result[5])
+np.savetxt("kappa.txt", result[0:4])
+np.savetxt("kappa_time_series.txt", time_series)
