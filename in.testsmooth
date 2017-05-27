@@ -1,0 +1,41 @@
+# sample LAMMPS input script for smoothforce function
+
+# settings
+variable	x equal 30
+variable	y equal 30
+variable    z equal 30
+variable    t equal 1.0
+variable	rc equal 3
+
+# problem setup
+
+units		lj
+dimension	3
+atom_style	atomic
+neigh_modify	delay 0 every 1
+
+region          simbox block 0 $x 0 $y 0 $z
+create_box      1 simbox
+create_atoms    1 single 10 10 10
+
+pair_style      lj/cut ${rc}
+pair_coeff      * * 1 1
+
+mass            * 1.0
+velocity        all set 0.5 0.5 0.5
+
+fix             1 all nvt temp $t $t 1
+group           single type 1
+fix             2 single smoothforce 11 19 0.15 0 3
+#fix             3 single spring tether 3 23 NULL NULL 0
+
+
+
+# data gathering run
+compute         com single com 
+reset_timestep  0
+thermo_style    custom c_com[1] f_2
+dump            1 single custom 1 force.txt id id x fx
+
+thermo          1
+run	        250000
