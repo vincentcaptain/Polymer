@@ -6,8 +6,8 @@ from mpi4py import MPI
 from pylab import *
 import random
 import sys
-from joblib import Parallel, delayed
-import multiprocessing
+# from joblib import Parallel, delayed
+# import multiprocessing
 
 # def main(argv):
 # 	if len(argv) != 0 and len(argv) != 5:
@@ -47,12 +47,13 @@ def FFS_init(target, monomers = 10, steps = 50):
 			break
 		pol.command("run 1 pre no post no")
 		time += dt
-		print(time, Pass)
+		print(time, Pass, com_current, left)
 	flux = steps / time
 	return init_x, init_v, time_step, flux
 
 def FFS_cont(init_x, init_v, init_t, flux, pos_init, target_series, monomers = 10, steps = 50):
 	p_collection = []
+	p_init = 1
 	for item in target_series:
 		Pass = 0
 		fail = 0
@@ -90,7 +91,7 @@ def FFS_cont(init_x, init_v, init_t, flux, pos_init, target_series, monomers = 1
 		init_x = cont_x
 		init_v = cont_v
 		init_t = cont_t
-	return p_init, p_collection
+	return p_init, flux*p_init
 
 def flux(pos, target):
 	p = lammps(cmdargs = ["-sc", "none"])
@@ -121,7 +122,10 @@ def flux(pos, target):
 # f = Parallel(n_jobs = num_cores)(delayed(flux)(i, 200) for i in a)
 # np.savetxt("flux.txt", b)
 
-start = 27
+"""
+Start at 29-5*bond_length+sigma=22
+"""
+start = 22
 end = 33
 interval = 0.1
 monomer = 10
@@ -132,7 +136,7 @@ pol.file("in.ljwall")
 # sampling range
 sampling = arange(start+interval, end, interval)
 # Initialize
-pol.command("fix 3 polymer spring tether 1 26 NULL NULL 0")
+pol.command("fix 3 polymer spring tether 1 21 NULL NULL 0")
 pol.command("run 5000 pre no post no")
 # ptotal = 1
 # x_init = []
@@ -154,9 +158,14 @@ pol.command("run 5000 pre no post no")
 pol.command("unfix 3")
 pol.command("run 0")
 pol.command("reset_timestep 0")
+
+""" 
+For loop to loop over some omega
+
+"""
 pol.command("fix 3 polymer smoothforce 29 31 0.15 1 3")
 Q0 = FFS_init(start, monomer, size)
-Q1 = FFS_cont(Q0[0], Q0[1], Q0[2], Q0[3], 26, sampling, monomer, size)
+Q1 = FFS_cont(Q0[0], Q0[1], Q0[2], Q0[3], 22, sampling, monomer, size)
 np.savetxt("FFS_prob_and_com.txt", Q1)
 #Q1 = FFS_cont(Q0[0], Q0[1], Q0[2], sampling, monomer, steps)
 #np.savetxt("FFS_prob_and_com.txt", np.r_[sampling, Q1])

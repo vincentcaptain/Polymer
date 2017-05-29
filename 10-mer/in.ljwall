@@ -19,7 +19,7 @@ dimension     3
 atom_style    bond
 bond_style    harmonic
 pair_style    lj/cut 3
-#processors    1 2 3
+processors    1 2 2
 read_data     data.polymer
 
 # LJ pairs
@@ -67,10 +67,14 @@ thermo        1000
 #fix 3 polymer spring tether 5 32 NULL NULL 0
 reset_timestep 0
 compute       com polymer com
-compute       g polymer gyration      
-thermo_style custom c_g c_com[1] c_com[2] c_com[3]
+compute       g polymer gyration   
+compute       msd polymer msd com yes   
+#thermo_style custom c_g c_com[1] c_com[2] c_com[3]
 variable      c equal c_com[1]
 group         p union print polymer
-#run 10000
+run           5000
+thermo_style custom c_msd[4] c_com[1] c_com[2] c_com[3]
+thermo        10
+run 100000
 thermo        10
 
