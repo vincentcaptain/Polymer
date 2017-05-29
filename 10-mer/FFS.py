@@ -20,7 +20,7 @@ import multiprocessing
 # 		monomer = eval(sys.argv[3])
 # 		steps = eval(sys.argv[4])
 # 	else:
-def FFS_init(x, v, target, monomers = 10, steps = 50):
+def FFS_init(target, monomers = 10, steps = 50):
 	init_v = []
 	init_x = []
 	time_step = []
@@ -153,8 +153,10 @@ pol.command("run 5000 pre no post no")
 
 pol.command("unfix 3")
 pol.command("run 0")
+pol.command("reset_timestep 0")
+pol.command("fix 3 polymer smoothforce 29 31 0.15 1 3")
 Q0 = FFS_init(start, monomer, size)
-Q1 = FFS_cont(Q0[0], Q0[1], Q0[2], Q0[3], start+interval, sampling, monomer, size)
+Q1 = FFS_cont(Q0[0], Q0[1], Q0[2], Q0[3], 26, sampling, monomer, size)
 np.savetxt("FFS_prob_and_com.txt", Q1)
 #Q1 = FFS_cont(Q0[0], Q0[1], Q0[2], sampling, monomer, steps)
 #np.savetxt("FFS_prob_and_com.txt", np.r_[sampling, Q1])
