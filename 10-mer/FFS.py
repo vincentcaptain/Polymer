@@ -85,7 +85,7 @@ def FFS_cont(init_x, init_v, init_t, flux, pos_init, target_series, monomers = 1
 				pol.command("reset_timestep %d" % init_t[r])
 			if Pass >= steps:
 				break
-			pol.command("run 1 pre no post no")
+			pol.command("run 1")
 		p_init *= Pass/(Pass+fail)
 		p_collection.append(Pass/(Pass+fail))
 		init_x = cont_x
@@ -125,8 +125,8 @@ def flux(pos, target):
 """
 Start at 29-5*bond_length+sigma=22
 """
-start = 22
-end = 33
+start = 25.4
+end = 33.5
 interval = 0.1
 monomer = 10
 steps = 50
@@ -136,8 +136,6 @@ pol.file("in.ljwall")
 # sampling range
 sampling = arange(start+interval, end, interval)
 # Initialize
-pol.command("fix 3 polymer spring tether 1 21 NULL NULL 0")
-pol.command("run 5000 pre no post no")
 # ptotal = 1
 # x_init = []
 # v_init = []
@@ -155,18 +153,14 @@ pol.command("run 5000 pre no post no")
 # 		com_z.append(com_current[2])
 # 	print(len(x_init))
 
-pol.command("unfix 3")
-pol.command("run 0")
-pol.command("reset_timestep 0")
 
 """ 
 For loop to loop over some omega
 
 """
-pol.command("fix 3 polymer smoothforce 29 31 0.15 1 3")
 Q0 = FFS_init(start, monomer, size)
-Q1 = FFS_cont(Q0[0], Q0[1], Q0[2], Q0[3], 22, sampling, monomer, size)
-np.savetxt("FFS_prob_and_com.txt", Q1)
+#Q1 = FFS_cont(Q0[0], Q0[1], Q0[2], Q0[3], 24, sampling, monomer, size)
+#np.savetxt("FFS_prob_and_com.txt", Q1)
 #Q1 = FFS_cont(Q0[0], Q0[1], Q0[2], sampling, monomer, steps)
 #np.savetxt("FFS_prob_and_com.txt", np.r_[sampling, Q1])
 #sys.exit()

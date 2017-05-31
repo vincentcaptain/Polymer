@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.5.22)  15 MAR 2017 14:04
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.5.22)  30 MAY 2017 09:57
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -230,16 +230,19 @@ Here is how much of TeX's memory you used:
  37i,4n,26p,342b,107s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2016/texmf-dist/fonts/type1/public
 /amsfonts/cm/cmbx12.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/
-amsfonts/cm/cmex10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/a
-msfonts/cm/cmmi10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/am
-sfonts/cm/cmmi8.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsf
-onts/cm/cmr10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfon
-ts/cm/cmr8.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/
-cm/cmsy10.pfb>
-Output written on polymer_outline.pdf (1 page, 79209 bytes).
+amsfonts/cm/cmmi10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/a
+msfonts/cm/cmmi6.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/ams
+fonts/cm/cmmi8.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfo
+nts/cm/cmr10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfont
+s/cm/cmr6.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/c
+m/cmr8.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/c
+msy10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cm
+sy6.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy
+8.pfb>
+Output written on polymer_outline.pdf (1 page, 102771 bytes).
 PDF statistics:
- 36 PDF objects out of 1000 (max. 8388607)
- 25 compressed objects within 1 object stream
+ 48 PDF objects out of 1000 (max. 8388607)
+ 34 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

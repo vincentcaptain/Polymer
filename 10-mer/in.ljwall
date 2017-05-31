@@ -62,19 +62,15 @@ fix           2 polymer langevin $t $t 1 1209
 timestep      0.01
 # equilibration run
 thermo        1000
-#run           10000
-
-#fix 3 polymer spring tether 5 32 NULL NULL 0
-reset_timestep 0
 compute       com polymer com
-compute       g polymer gyration   
-compute       msd polymer msd com yes   
-#thermo_style custom c_g c_com[1] c_com[2] c_com[3]
-variable      c equal c_com[1]
-group         p union print polymer
+thermo_style custom c_com[1] c_com[2] c_com[3]
+fix           3 polymer spring tether 1 25.4 NULL NULL 0
 run           5000
-thermo_style custom c_msd[4] c_com[1] c_com[2] c_com[3]
+unfix         3
+reset_timestep 0
+fix 3 polymer smoothforce 29 31 0.15 1 3
+change_box    all boundary f p p
+fix 4 polymer wall/reflect xlo 21.5 xhi 39.5
 thermo        10
-run 100000
-thermo        10
+
 
