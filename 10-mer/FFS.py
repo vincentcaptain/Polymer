@@ -164,7 +164,7 @@ init_x = []
 init_v = []
 init_t = []
 i = 0
-while i < steps:
+while i < size:
 	com_current = pol.extract_compute("com", 0, 1)[0]
 	if com_current > start:
 		x_current = pol.gather_atoms("x", 1, 3)
