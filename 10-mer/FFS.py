@@ -70,27 +70,29 @@ def FFS_cont(init_x, init_v, init_t, flux, pos_init, target_series, monomers = 1
 				cont_x.append(x_current[:3*monomers])
 				cont_t.append(pol.extract_global("ntimestep", 0))
 				r = random.randint(0, len(init_x) - 1)
-				x_original[:3*monomers] = init_x[r]
-				v_original[:3*monomers] = init_v[r]
-				pol.scatter_atoms("x", 1, 3, x_original)
-				pol.scatter_atoms("v", 1, 3, v_original)
+				x_current[:3*monomers] = init_x[r]
+				v_current[:3*monomers] = init_v[r]
+				pol.scatter_atoms("x", 1, 3, x_current)
+				pol.scatter_atoms("v", 1, 3, v_current)
 				pol.command("reset_timestep %d" % init_t[r])
 			if com_current < pos_init:
 				fail += 1
 				r = random.randint(0, len(init_x) - 1)
-				x_original[:3*monomers] = init_x[r]
-				v_original[:3*monomers] = init_v[r]
-				pol.scatter_atoms("x", 1, 3, x_original)
-				pol.scatter_atoms("v", 1, 3, v_original)
+				x_current[:3*monomers] = init_x[r]
+				v_current[:3*monomers] = init_v[r]
+				pol.scatter_atoms("x", 1, 3, x_current)
+				pol.scatter_atoms("v", 1, 3, v_current)
 				pol.command("reset_timestep %d" % init_t[r])
 			if Pass >= steps:
 				break
 			pol.command("run 1")
+			print(Pass)
 		p_init *= Pass/(Pass+fail)
 		p_collection.append(Pass/(Pass+fail))
 		init_x = cont_x
 		init_v = cont_v
 		init_t = cont_t
+		print(item)
 	return p_init, flux*p_init
 
 def flux(pos, target):
@@ -158,11 +160,26 @@ sampling = arange(start+interval, end, interval)
 For loop to loop over some omega
 
 """
-Q0 = FFS_init(start, monomer, size)
-#Q1 = FFS_cont(Q0[0], Q0[1], Q0[2], Q0[3], 24, sampling, monomer, size)
-#np.savetxt("FFS_prob_and_com.txt", Q1)
-#Q1 = FFS_cont(Q0[0], Q0[1], Q0[2], sampling, monomer, steps)
-#np.savetxt("FFS_prob_and_com.txt", np.r_[sampling, Q1])
-#sys.exit()
+# Q0 = FFS_init(start, monomer, size)
+init_x = []
+init_v = []
+init_t = []
+i = 0
+while i < steps:
+	com_current = pol.extract_compute("com", 0, 1)[0]
+	if com_current > start:
+		x_current = pol.gather_atoms("x", 1, 3)
+		v_current = pol.gather_atoms("v", 1, 3)
+		init_x.append(x_current[:3*monomer])
+		init_v.append(v_current[:3*monomer])
+		init_t.append(pol.extract_global("ntimestep", 0))
+		i += 1
+	pol.command("run 10")
+	print(i)
+
+
+Q1 = FFS_cont(init_x, init_v, init_t, 1, 24, sampling, monomer, size)
+np.savetxt("FFS_prob_and_com.txt", Q1)
+sys.exit()
 
 

@@ -35,7 +35,7 @@ run           10000
 
 reset_timestep 0
 compute       com polymer com
-compute       msd polymer msd com yes
+compute       msd polymer msd
 compute       g polymer gyration
 run 5000
 dump          pos polymer xyz 10 pol.xyz
