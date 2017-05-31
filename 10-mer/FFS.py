@@ -125,14 +125,15 @@ def flux(pos, target):
 """
 Start at 29-5*bond_length+sigma=22
 """
+logfile=open('some_name.out','w')
 start = 25.4
 end = 33.5
 interval = 0.1
 monomer = 10
 steps = 50
 size = 900
-#pol = lammps(cmdargs = ["-sc", "none"])
-pol = lammps()
+pol = lammps(cmdargs = ["-sc", "none"])
+#pol = lammps()
 pol.file("in.ljwall")
 # sampling range
 sampling = arange(start+interval, end, interval)
