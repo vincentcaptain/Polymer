@@ -17,7 +17,7 @@ dimension     3
 atom_style    bond
 bond_style    harmonic
 pair_style    lj/cut 3
-#processors    1 4 6
+processors    1 4 6
 read_data     data.nowall
 
 velocity      all create $t 97287

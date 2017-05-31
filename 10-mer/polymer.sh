@@ -1,6 +1,6 @@
 #!/bin/bash
 # Job name:
-#SBATCH --job-name=ljwall_FFS
+#SBATCH --job-name=ljwall_msd
 #
 # Account:
 #SBATCH --account=co_noneq
@@ -23,4 +23,4 @@
 # Mail user:
 #SBATCH --mail-user=vincentcaptain@berkeley.edu
 ## Command(s) to run:
-mpirun -np 24 python2 FFS.py
+mpirun -np 24 lmp_mpi -i in.msd

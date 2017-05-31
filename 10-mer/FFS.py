@@ -86,13 +86,11 @@ def FFS_cont(init_x, init_v, init_t, flux, pos_init, target_series, monomers = 1
 			if Pass >= steps:
 				break
 			pol.command("run 1")
-			print(Pass)
 		p_init *= Pass/(Pass+fail)
 		p_collection.append(Pass/(Pass+fail))
 		init_x = cont_x
 		init_v = cont_v
 		init_t = cont_t
-		print(item)
 	return p_init, flux*p_init
 
 def flux(pos, target):
@@ -133,7 +131,8 @@ interval = 0.1
 monomer = 10
 steps = 50
 size = 900
-pol = lammps(cmdargs = ["-sc", "none"])
+#pol = lammps(cmdargs = ["-sc", "none"])
+pol = lammps()
 pol.file("in.ljwall")
 # sampling range
 sampling = arange(start+interval, end, interval)
@@ -175,7 +174,6 @@ while i < steps:
 		init_t.append(pol.extract_global("ntimestep", 0))
 		i += 1
 	pol.command("run 10")
-	print(i)
 
 
 Q1 = FFS_cont(init_x, init_v, init_t, 1, 24, sampling, monomer, size)
