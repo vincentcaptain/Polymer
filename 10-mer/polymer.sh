@@ -1,6 +1,6 @@
 #!/bin/bash
 # Job name:
-#SBATCH --job-name=ljwall_one_omega_trans_prob
+#SBATCH --job-name=ljwall_omega_transitional_prob
 #
 # Account:
 #SBATCH --account=co_noneq

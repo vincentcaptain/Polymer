@@ -103,21 +103,21 @@ c_com[1] c_com[2] c_com[3]
    25.912923    18.090184    13.343844 
    24.924217     18.72936    13.105471 
    26.177463    18.862716    12.800515 
-Loop time of 4.65547 on 24 procs for 5000 steps with 8887 atoms
+Loop time of 3.71683 on 24 procs for 5000 steps with 8887 atoms
 
-Performance: 927939.757 tau/day, 1074.004 timesteps/s
-44.4% CPU use with 24 MPI tasks x no OpenMP threads
+Performance: 1162279.635 tau/day, 1345.231 timesteps/s
+46.8% CPU use with 24 MPI tasks x no OpenMP threads
 
 MPI task timing breakdown:
 Section |  min time  |  avg time  |  max time  |%varavg| %total
 ---------------------------------------------------------------
-Pair    | 0.00027871 | 0.39112    | 1.0712     |  64.7 |  8.40
-Bond    | 0.00027013 | 0.00062215 | 0.0022621  |   1.7 |  0.01
-Neigh   | 1.8095     | 1.9835     | 2.1103     |   6.8 | 42.61
-Comm    | 0.055664   | 0.88221    | 1.8858     |  86.1 | 18.95
-Output  | 0.00011492 | 0.00014002 | 0.00016904 |   0.1 |  0.00
-Modify  | 0.16066    | 1.3053     | 2.4775     |  97.6 | 28.04
-Other   |            | 0.09253    |            |       |  1.99
+Pair    | 0.00025249 | 0.33385    | 0.7978     |  58.6 |  8.98
+Bond    | 0.00026035 | 0.00056073 | 0.0020115  |   1.6 |  0.02
+Neigh   | 1.4849     | 1.6013     | 1.7504     |   6.2 | 43.08
+Comm    | 0.050009   | 0.65451    | 1.3815     |  72.0 | 17.61
+Output  | 0.00011706 | 0.00014191 | 0.00017095 |   0.1 |  0.00
+Modify  | 0.094508   | 1.0339     | 1.9328     |  83.9 | 27.82
+Other   |            | 0.0926     |            |       |  2.49
 
 Nlocal:    370.292 ave 900 max 0 min
 Histogram: 12 0 0 0 0 0 6 0 0 6
