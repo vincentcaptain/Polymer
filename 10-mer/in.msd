@@ -17,7 +17,7 @@ dimension     3
 atom_style    bond
 bond_style    harmonic
 pair_style    lj/cut 3
-processors    1 4 6
+processors    1 2 2
 read_data     data.nowall
 
 velocity      all create $t 97287
@@ -35,10 +35,9 @@ run           10000
 
 reset_timestep 0
 compute       com polymer com
-compute       msd polymer msd
 compute       g polymer gyration
 run 5000
-dump          pos polymer xyz 10 pol.xyz
-thermo_style custom c_g c_msd[4] c_com[1] 
-thermo        10
+dump          pos polymer custom 10 pos.txt xu yu zu 
+thermo_style custom c_g c_com[1] c_com[2] c_com[3]
+thermo        1
 run 1000000

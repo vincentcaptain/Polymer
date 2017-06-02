@@ -161,10 +161,12 @@ For loop to loop over some omega
 
 """
 # Q0 = FFS_init(start, monomer, size)
+o = eval(sys.argv[1])
 init_x = []
 init_v = []
 init_t = []
 i = 0
+pol.command("run 0 pre no post no")
 while i < size:
 	com_current = pol.extract_compute("com", 0, 1)[0]
 	if com_current > start:
@@ -174,11 +176,12 @@ while i < size:
 		init_v.append(v_current[:3*monomer])
 		init_t.append(pol.extract_global("ntimestep", 0))
 		i += 1
+	print(i)
 	pol.command("run 10")
-
+pol.command("fix 3 polymer smoothforce 29 31 0.15 %s 3" o)
 
 Q1 = FFS_cont(init_x, init_v, init_t, 1, 24, sampling, monomer, size)
-np.savetxt("FFS_prob_and_com.txt", Q1)
+np.savetxt("FFS_prob_and_com%s.txt" % o, Q1)
 sys.exit()
 
 
