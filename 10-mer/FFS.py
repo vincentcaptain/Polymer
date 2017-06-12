@@ -176,9 +176,9 @@ while i < size:
 		init_v.append(v_current[:3*monomer])
 		init_t.append(pol.extract_global("ntimestep", 0))
 		i += 1
-	print(i)
+	print(i, com_current)
 	pol.command("run 10")
-pol.command("fix 3 polymer smoothforce 29 31 0.15 %s 3" o)
+pol.command("fix 3 polymer smoothforce 29 31 0.15 %s 3" % o)
 
 Q1 = FFS_cont(init_x, init_v, init_t, 1, 24, sampling, monomer, size)
 np.savetxt("FFS_prob_and_com%s.txt" % o, Q1)
