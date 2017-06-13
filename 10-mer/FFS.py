@@ -51,7 +51,7 @@ def FFS_init(target, monomers = 10, steps = 50):
 	flux = steps / time
 	return init_x, init_v, time_step, flux
 
-def FFS_cont(init_x, init_v, init_t, flux, pos_init, target_series, monomers = 10, steps = 50):
+def FFS_cont(init_x, init_v, init_t, flux, pos_init, target_series, monomers, steps):
 	p_collection = []
 	p_init = 1
 	for item in target_series:
@@ -86,6 +86,7 @@ def FFS_cont(init_x, init_v, init_t, flux, pos_init, target_series, monomers = 1
 			if Pass >= steps:
 				break
 			pol.command("run 1")
+			print(Pass, item, com_current)
 		p_init *= Pass/(Pass+fail)
 		p_collection.append(Pass/(Pass+fail))
 		init_x = cont_x
@@ -125,7 +126,7 @@ def flux(pos, target):
 """
 Start at 29-5*bond_length+sigma=22
 """
-logfile=open('some_name.out','w')
+#logfile=open('some_name.out','w')
 start = 25.4
 end = 33.5
 interval = 0.1
@@ -167,20 +168,25 @@ init_v = []
 init_t = []
 i = 0
 pol.command("run 0 pre no post no")
+com_current = pol.extract_compute("com", 0, 1)[0]
+left = com_current < start
 while i < size:
 	com_current = pol.extract_compute("com", 0, 1)[0]
-	if com_current > start:
+	if com_current > start and left:
 		x_current = pol.gather_atoms("x", 1, 3)
 		v_current = pol.gather_atoms("v", 1, 3)
 		init_x.append(x_current[:3*monomer])
 		init_v.append(v_current[:3*monomer])
 		init_t.append(pol.extract_global("ntimestep", 0))
 		i += 1
+		left = not left
+	if com_current < start and not left:
+		left = not left
 	print(i, com_current)
 	pol.command("run 10")
 pol.command("fix 3 polymer smoothforce 29 31 0.15 %s 3" % o)
 
-Q1 = FFS_cont(init_x, init_v, init_t, 1, 24, sampling, monomer, size)
+Q1 = FFS_cont(init_x, init_v, init_t, 1, 25.8, sampling, monomer, size)
 np.savetxt("FFS_prob_and_com%s.txt" % o, Q1)
 sys.exit()
 
