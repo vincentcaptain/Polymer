@@ -15,6 +15,7 @@ pol = lammps(cmdargs = ["-sc", "none"])
 pol.file("in.ljwall")
 start = eval(sys.argv[1])
 size = eval(sys.argv[2])
+monomer = eval(sys.argv[3])
 init_x = []
 init_v = []
 init_t = []
