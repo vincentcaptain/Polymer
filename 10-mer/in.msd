@@ -36,8 +36,9 @@ run           10000
 reset_timestep 0
 compute       com polymer com
 compute       g polymer gyration
+compute       msd polymer msd
 run 5000
 dump          pos polymer custom 10 pos.txt xu yu zu 
-thermo_style custom c_g c_com[1] c_com[2] c_com[3]
+thermo_style custom c_com[1] c_g c_msd[4]
 thermo        1
 run 1000000
