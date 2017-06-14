@@ -1,6 +1,6 @@
 #!/bin/bash
 # Job name:
-#SBATCH --job-name=ljwall_omega_transitional_prob
+#SBATCH --job-name=testsmooth
 #
 # Account:
 #SBATCH --account=co_noneq
@@ -23,4 +23,4 @@
 # Mail user:
 #SBATCH --mail-user=vincentcaptain@berkeley.edu
 ## Command(s) to run:
-mpirun -np 8 python2 FFS.py
+mpirun -np 8 lmp_mpi -i in.testsmooth

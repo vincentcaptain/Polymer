@@ -19,7 +19,7 @@ dimension     3
 atom_style    bond
 bond_style    harmonic
 pair_style    lj/cut 3
-processors    1 2 2
+processors    2 2 2
 read_data     data.polymer
 
 # LJ pairs
@@ -63,15 +63,18 @@ timestep      0.01
 # equilibration run
 thermo        1000
 compute       com polymer com
-thermo_style custom c_com[1] c_com[2] c_com[3]
+#thermo_style custom c_com[1] c_com[2] c_com[3]
 fix           3 polymer spring tether 5 29 NULL NULL 0
 run           10000
 unfix         3
 reset_timestep 0
-change_box    all boundary f p p
+change_box    all boundary f f f
 fix 3 polymer smoothforce 29 31 0.15 1 3
 fix 4 polymer wall/reflect xlo 25.5 xhi 34.5
+fix 5 polymer wall/reflect ylo 10 yhi 20
+fix 6 polymer wall/reflect zlo 10 zhi 20
+thermo_style custom f_3 c_com[1] c_com[2] c_com[3]
 thermo        10
-run           500000
+run           2000000
 
 
