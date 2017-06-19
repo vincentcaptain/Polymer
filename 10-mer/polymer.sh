@@ -1,6 +1,6 @@
 #!/bin/bash
 # Job name:
-#SBATCH --job-name=testsmooth
+#SBATCH --job-name=sampling
 #
 # Account:
 #SBATCH --account=co_noneq
@@ -12,7 +12,7 @@
 #SBATCH --nodes=1
 #
 # Processors per task:
-#SBATCH --cpus-per-task=8
+#SBATCH --cpus-per-task=4
 #
 # Wall clock limit:
 #SBATCH --time=80:00:00
@@ -23,4 +23,4 @@
 # Mail user:
 #SBATCH --mail-user=vincentcaptain@berkeley.edu
 ## Command(s) to run:
-mpirun -np 8 lmp_mpi -i in.testsmooth
+mpirun -np 4 python2 sampling_FFS_omega.py 25.4 900 10

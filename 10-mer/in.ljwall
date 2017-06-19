@@ -69,7 +69,7 @@ run           6000
 unfix         3
 reset_timestep 0
 change_box    all boundary f p p
-#fix 3 polymer smoothforce 29 31 0.15 1 3
+fix 7 polymer smoothforce 29 31 0.15 1 3
 fix 4 polymer wall/reflect xlo 22.5 xhi 37.5
 thermo        10
 
